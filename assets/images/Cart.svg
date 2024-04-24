@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="40" viewBox="0 0 44 40">
+  <g id="Cart" transform="translate(-307 -24)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="44" height="40" rx="12" transform="translate(307 24)" fill="#cb0006"/>
+    <g id="ion:bag-handle-outline">
+      <path id="Vector" d="M321.667,40a.622.622,0,0,0-.471.228.848.848,0,0,0-.2.55v10.5A2.592,2.592,0,0,0,323.333,54h11.333A2.533,2.533,0,0,0,337,51.339V40.778a.848.848,0,0,0-.2-.55.622.622,0,0,0-.471-.228Z" fill="none" stroke="#fff" stroke-width="1.5"/>
+      <path id="Vector-2" data-name="Vector" d="M324.5,40V38.75a4.5,4.5,0,0,1,9,0V40" fill="none" stroke="#fff" stroke-width="1.5"/>
+      <path id="Vector-3" data-name="Vector" d="M324.5,43v.75a4.5,4.5,0,0,0,9,0V43" fill="none" stroke="#fff" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

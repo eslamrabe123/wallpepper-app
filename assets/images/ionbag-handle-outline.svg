@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.5" height="21.25" viewBox="0 0 17.5 21.25">
+  <g id="ion:bag-handle-outline" transform="translate(-819.25 -749.5)">
+    <path id="Vector" d="M820.667,756a.622.622,0,0,0-.471.228.848.848,0,0,0-.2.55v10.5A2.592,2.592,0,0,0,822.333,770h11.333A2.533,2.533,0,0,0,836,767.339V756.778a.847.847,0,0,0-.2-.55.622.622,0,0,0-.471-.228Z" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <path id="Vector-2" data-name="Vector" d="M823.5,756v-1.25a4.5,4.5,0,1,1,9,0V756" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <path id="Vector-3" data-name="Vector" d="M823.5,759v.75a4.5,4.5,0,1,0,9,0V759" fill="none" stroke="#fff" stroke-width="1.5"/>
+  </g>
+</svg>

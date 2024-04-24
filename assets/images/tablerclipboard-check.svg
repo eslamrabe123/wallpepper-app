@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.167" height="25.5" viewBox="0 0 20.167 25.5">
+  <g id="tabler:clipboard-check" transform="translate(-2666.917 -747.25)">
+    <g id="Group">
+      <path id="Vector" d="M2673,750.667h-2.667a2.667,2.667,0,0,0-2.667,2.667v16a2.667,2.667,0,0,0,2.667,2.667h13.333a2.667,2.667,0,0,0,2.667-2.667v-16a2.667,2.667,0,0,0-2.667-2.667H2681" fill="#cb0006" stroke="#fff" stroke-width="1.5"/>
+      <rect id="Vector-2" data-name="Vector" width="8" height="5.33" rx="2.665" transform="translate(2673 748)" fill="#cb0006" stroke="#fff" stroke-width="1.5"/>
+      <path id="Vector-3" data-name="Vector" d="M2673,762.667l2.667,2.667L2681,760" fill="#cb0006" stroke="#fff" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

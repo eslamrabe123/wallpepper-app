@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38.579" height="37.775" viewBox="0 0 38.579 37.775">
+  <g id="Group_15" data-name="Group 15" transform="translate(144 -969.159)">
+    <g id="Button_Add_Cart" data-name="Button Add Cart" transform="translate(-144 969.159)">
+      <rect id="Rectangle_5" data-name="Rectangle 5" width="38.579" height="37.775" rx="12" fill="#cb0006"/>
+      <g id="Group_15-2" data-name="Group 15" transform="translate(12.859 11.453)">
+        <g id="ion:bag-handle-outline">
+          <path id="Vector" d="M820.536,756a.5.5,0,0,0-.379.183.682.682,0,0,0-.157.442v8.439a2.083,2.083,0,0,0,1.875,2.188h9.109a2.036,2.036,0,0,0,1.875-2.139v-8.488a.681.681,0,0,0-.157-.442.5.5,0,0,0-.379-.183Z" transform="translate(-820 -751.379)" fill="none" stroke="#fff" stroke-width="1.5"/>
+          <path id="Vector-2" data-name="Vector" d="M823.5,754.871v-1a3.617,3.617,0,1,1,7.234,0v1" transform="translate(-820.687 -750.25)" fill="none" stroke="#fff" stroke-width="1.5"/>
+          <path id="Vector-3" data-name="Vector" d="M823.5,759v.6a3.617,3.617,0,1,0,7.234,0V759" transform="translate(-820.687 -751.967)" fill="none" stroke="#fff" stroke-width="1.5"/>
+        </g>
+      </g>
+    </g>
+    <text id="_" data-name="+" transform="translate(-119.888 969.159)" fill="#fdfdfd" font-size="15" font-family="SegoeUI, Segoe UI"><tspan x="0" y="16">+</tspan></text>
+  </g>
+</svg>
