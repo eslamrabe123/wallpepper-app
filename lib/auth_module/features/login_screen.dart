@@ -106,7 +106,7 @@ class LoginView extends StatelessWidget {
                         ButtonItem(
                           onPressed: () async {
                             if (loginFormKey.currentState!.validate()) {
-                              await cubit.login(context: context);
+                              await cubit.login();
                               Navigator.pushNamed(context, HomeScreen.id);
                             }
                           },

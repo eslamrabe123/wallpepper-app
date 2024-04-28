@@ -13,23 +13,11 @@ import '../cubit/auth_state.dart';
 class PinCodeView extends StatelessWidget {
   PinCodeView({super.key, required this.phone});
 
-  static var pinCodFormKey = GlobalKey<FormState>();
-  final defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: const TextStyle(
-        fontSize: 20,
-        color: Color.fromRGBO(30, 60, 87, 1),
-        fontWeight: FontWeight.w600),
-    decoration: BoxDecoration(
-      border: Border.all(color: const Color.fromRGBO(234, 239, 243, 1)),
-      borderRadius: BorderRadius.circular(20),
-    ),
-  );
+  String phone = '';
 
   static String id = 'RegisterView';
-  final String phone;
-  final List<int> items = const [1, 2, 3, 4];
+
+  static var pinCodFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +25,20 @@ class PinCodeView extends StatelessWidget {
       body: BlocProvider(
         create: (context) => serviceLocator<AuthCubit>(),
         child: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is PinCodeSuccessState) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SetPasswordView(
+                      phone: phone,
+                    ),
+                  ),
+                );
+              });
+            }
+          },
           builder: (context, state) {
             final cubit = AuthCubit.get(context);
             return SingleChildScrollView(
@@ -56,13 +57,13 @@ class PinCodeView extends StatelessWidget {
                         "assets/images/pin_code_icon.svg",
                       ),
                       SizedBox(
-                        height: 70.h,
+                        height: 50.h,
                       ),
                       // SizedBox(height: 100.h,),
                       const TextItem(
                         textAlign: TextAlign.center,
                         text: "ٌRegister as Boss",
-                        color: Colors.white,
+                        color: Colors.red,
                         fontWeight: FontWeight.bold,
                         textSize: 30,
                       ),
@@ -79,6 +80,9 @@ class PinCodeView extends StatelessWidget {
                           },
                           pinAnimationType: PinAnimationType.fade,
                           closeKeyboardWhenCompleted: true,
+                          onCompleted: (data) {
+                            print(data);
+                          },
                           animationCurve: Curves.easeInOut,
                           animationDuration: const Duration(seconds: 2),
                           validator: (e) {
@@ -89,11 +93,23 @@ class PinCodeView extends StatelessWidget {
                             }
                             return null;
                           },
-                          defaultPinTheme: defaultPinTheme,
+                          defaultPinTheme: PinTheme(
+                            width: 56,
+                            height: 56,
+                            textStyle: const TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(30, 60, 87, 1),
+                                fontWeight: FontWeight.w600),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color:
+                                      const Color.fromRGBO(234, 239, 243, 1)),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
                           controller: cubit.otpController,
                           preFilledWidget: const TextItem(
                             text: '__',
-                            
                           ),
                         ),
                       ),
@@ -114,22 +130,19 @@ class PinCodeView extends StatelessWidget {
                       ButtonItem(
                         onPressed: () async {
                           if (pinCodFormKey.currentState!.validate()) {
-                             cubit.pinCode(
-                              phone: phone,
-                              otp: cubit.otp ?? 0,
-                            ).then((value) {
-                                 Navigator.push(
-                                   context,
-                                   MaterialPageRoute(
-                                     builder: (context) =>
-                                         SetPasswordView(
-                                           phone: phone,
-                                         ),
-                                   ),
-                                 );
-                             });
-
-
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SetPasswordView(
+                                  phone: phone,
+                                ),
+                              ),
+                            );
+                            // await cubit.pinCode(
+                            //   phone: phone,
+                            //   otp: cubit.otp,
+                            // );
+                            print("DONE");
                           }
                         },
                         text: 'Verify',

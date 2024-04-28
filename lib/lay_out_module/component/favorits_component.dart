@@ -12,12 +12,9 @@ class FavoritesComponent extends StatefulWidget {
   FavoritesComponent({
     super.key,
     required this.index,
-    required this.nweIndex,
   });
 
   final int index;
-  final int nweIndex;
-  bool isLike = false;
 
   @override
   State<FavoritesComponent> createState() => _RecommendedItemState();
@@ -37,8 +34,6 @@ class _RecommendedItemState extends State<FavoritesComponent> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => OrderDetails(index: widget.index)));
-            print("index is ${widget.index}");
-            print("new index is ${widget.nweIndex}");
           },
           child: FadeIn(
             duration: const Duration(milliseconds: 500),

@@ -29,8 +29,11 @@ class HomeScreen extends StatelessWidget {
           final cubit = LayOutCubit.get(context);
 
           return Scaffold(
-            drawer: DrawerWidget(),
-            body: SafeArea(
+            drawer: const DrawerWidget(),
+            body: state is CategoryStateLoading ||
+                state is RecommendedStateLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SafeArea(
               child: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
@@ -61,7 +64,8 @@ class HomeScreen extends StatelessWidget {
                           height: 25.h,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.0.r),
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 18.0.r),
                           child: const TextItem(
                             text: 'Hello Babe!',
                             textSize: 16,
@@ -70,7 +74,8 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.0.r),
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 18.0.r),
                           child: const TextItem(
                             text: 'Please call me Now 💋!',
                             textSize: 24,
@@ -79,7 +84,8 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.0.r),
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 18.0.r),
                           child: TextFieldItem(
                             hintText: "Search",
                             suffixIcon: IconButton(
@@ -108,10 +114,11 @@ class HomeScreen extends StatelessWidget {
                     ),
                     sliver: SliverToBoxAdapter(
                       child: SizedBox(
-                        height: 100,
+                        height: 120,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: cubit.categoryModel?.data.length ?? 5,
+                          itemCount:
+                          cubit.categoryModel?.data.length ?? 5,
                           itemBuilder: (context, index) {
                             return CategoryItem(
                               index: index,
@@ -142,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const RecommendedListView()));
+                                      const RecommendedListView()));
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -171,36 +178,36 @@ class HomeScreen extends StatelessWidget {
                   ),
                   cubit.currentIndex == 0
                       ? SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              cubit.index = index;
+                    delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                        cubit.index = index;
 
-                              return RecommendedItem(
-                                nweIndex: index,
-                                index: index,
-                              );
-                            },
-                            childCount: 5,
-                          ),
-                        )
+                        return RecommendedItem(
+                          nweIndex: index,
+                          index: index,
+                        );
+                      },
+                      childCount: 5,
+                    ),
+                  )
                       : SliverToBoxAdapter(
-                          child: Center(
-                            heightFactor: 3.0,
-                            child: Container(
-                              padding: EdgeInsets.all(16.r),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.amber,
-                              ),
-                              child: const TextItem(
-                                text: "IN PROGRESS !",
-                                color: Colors.white,
-                                textSize: 40,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        )
+                    child: Center(
+                      heightFactor: 3.0,
+                      child: Container(
+                        padding: EdgeInsets.all(16.r),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.amber,
+                        ),
+                        child: const TextItem(
+                          text: "IN PROGRESS !",
+                          color: Colors.white,
+                          textSize: 40,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

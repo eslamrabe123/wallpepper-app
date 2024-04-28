@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wallpapper/lay_out_module/cubit/lay_out_cubit.dart';
 import 'package:wallpapper/shared/textItem.dart';
+import '../../core/helper/my_loading.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/themes/color_themes.dart';
 
@@ -16,9 +17,7 @@ class OrderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => serviceLocator<LayOutCubit>()
-        ..getCategory()
-        ..getRecommended(),
+      create: (context) => serviceLocator<LayOutCubit>()..getRecommended(),
       child: Scaffold(
         body: OrderDetailContent(
           index: index,
@@ -41,7 +40,9 @@ class OrderDetailContent extends StatelessWidget {
     return BlocBuilder<LayOutCubit, LayOutState>(
       builder: (context, state) {
         final cubit = LayOutCubit.get(context);
-        return CustomScrollView(
+        return state is RecommendedStateLoading
+            ? const Center(child: CircularProgressIndicator())
+            : CustomScrollView(
           slivers: [
             SliverAppBar(
               leading: IconButton(
@@ -50,7 +51,7 @@ class OrderDetailContent extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios,
-                  color: Color(0xff40484E),
+                  color: Colors.white,
                 ),
               ),
               actions: [

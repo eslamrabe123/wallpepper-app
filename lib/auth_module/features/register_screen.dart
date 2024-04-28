@@ -90,7 +90,7 @@ class RegisterView extends StatelessWidget {
                             onPressed: () async {
 
                               if (registerFormKey.currentState!.validate()) {
-                                final data = await cubit.register();
+                                final data = await cubit.register(context: context);
 
                                 if (data != null) {
                                   Navigator.push(

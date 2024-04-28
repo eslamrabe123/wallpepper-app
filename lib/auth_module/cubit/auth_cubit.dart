@@ -3,8 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpapper/auth_module/cubit/auth_state.dart';
-import '../../core/utiles/shared.dart';
-import '../../core/utiles/utils.dart';
+
 import '../domain/models/user_data_model.dart';
 import '../domain/repository/aut_repository.dart';
 
@@ -21,7 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController setPasswordController = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
-  sendOtp({String phone = ''}) async {
+  sendOtp({required BuildContext context, String phone = ''}) async {
     emit(SendOTPLoadingState());
     final data = await authRepository.sendOtp(phone: phone);
     if (data != null) {
@@ -33,7 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  register() async {
+  register({required BuildContext context}) async {
     emit(RegisterLoadingState());
     final result =
         await authRepository.register(phoneNumber: phoneController.text.trim());
@@ -46,7 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  completeRegister({required String phone}) async {
+  completeRegister({required BuildContext context, String phone = ''}) async {
     emit(CompleteRegisterLoadingState());
     final result = await authRepository.completeRegister(
       password: setPasswordController.text.trim(),
@@ -64,7 +63,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   GetUserDataModel? getUserDataModel;
 
-  login({required BuildContext context}) async {
+  login() async {
     emit(LoginLoadingState());
     final result = await authRepository.login(
       phoneNumber: phoneController.text.trim(),
@@ -81,20 +80,19 @@ class AuthCubit extends Cubit<AuthState> {
 
   int? otp;
 
-  Future<void> pinCode({
-    required String phone,
-    required int otp,
+  pinCode({
+    String phone = '',
+    int? otp,
   }) async {
-    print('object');
     emit(PinCodeLoadingState());
     final result = await authRepository.pinCode(
       phoneNumber: phone,
       otp: otp,
     );
-    if (result != null) {
+    if (result) {
       emit(PinCodeSuccessState());
 
-      return result;
+      return true;
     } else {
       emit(PinCodeErrorState());
     }

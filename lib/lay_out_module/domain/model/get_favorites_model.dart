@@ -7,13 +7,15 @@ class GetFavoritesModel {
   final int? status;
   final List<GetFavoritesModelDatum> data;
 
-  factory GetFavoritesModel.fromJson(Map<String, dynamic> json){
+  factory GetFavoritesModel.fromJson(Map<String, dynamic> json) {
     return GetFavoritesModel(
       status: json["status"],
-      data: json["data"] == null ? [] : List<GetFavoritesModelDatum>.from(json["data"]!.map((x) => GetFavoritesModelDatum.fromJson(x))),
+      data: json["data"] == null
+          ? []
+          : List<GetFavoritesModelDatum>.from(
+              json["data"]!.map((x) => GetFavoritesModelDatum.fromJson(x))),
     );
   }
-
 }
 
 class GetFavoritesModelDatum {
@@ -27,7 +29,7 @@ class GetFavoritesModelDatum {
     required this.rating,
     required this.newDish,
     required this.time,
-    required this.isFav,
+    this.isFav = true,
     required this.category,
     required this.features,
   });
@@ -41,11 +43,11 @@ class GetFavoritesModelDatum {
   final int? rating;
   final int? newDish;
   final int? time;
-  final bool? isFav;
+  bool isFav;
   final Category? category;
   final List<Feature> features;
 
-  factory GetFavoritesModelDatum.fromJson(Map<String, dynamic> json){
+  factory GetFavoritesModelDatum.fromJson(Map<String, dynamic> json) {
     return GetFavoritesModelDatum(
       id: json["id"],
       name: json["name"],
@@ -57,11 +59,14 @@ class GetFavoritesModelDatum {
       newDish: json["new_dish"],
       time: json["time"],
       isFav: json["is_fav"],
-      category: json["category"] == null ? null : Category.fromJson(json["category"]),
-      features: json["features"] == null ? [] : List<Feature>.from(json["features"]!.map((x) => Feature.fromJson(x))),
+      category:
+          json["category"] == null ? null : Category.fromJson(json["category"]),
+      features: json["features"] == null
+          ? []
+          : List<Feature>.from(
+              json["features"]!.map((x) => Feature.fromJson(x))),
     );
   }
-
 }
 
 class Category {
@@ -75,14 +80,13 @@ class Category {
   final String? name;
   final String? avatar;
 
-  factory Category.fromJson(Map<String, dynamic> json){
+  factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
       id: json["id"],
       name: json["name"],
       avatar: json["avatar"],
     );
   }
-
 }
 
 class Feature {
@@ -98,15 +102,17 @@ class Feature {
   final int? type;
   final List<FeatureDatum> data;
 
-  factory Feature.fromJson(Map<String, dynamic> json){
+  factory Feature.fromJson(Map<String, dynamic> json) {
     return Feature(
       id: json["id"],
       name: json["name"],
       type: json["type"],
-      data: json["data"] == null ? [] : List<FeatureDatum>.from(json["data"]!.map((x) => FeatureDatum.fromJson(x))),
+      data: json["data"] == null
+          ? []
+          : List<FeatureDatum>.from(
+              json["data"]!.map((x) => FeatureDatum.fromJson(x))),
     );
   }
-
 }
 
 class FeatureDatum {
@@ -118,11 +124,10 @@ class FeatureDatum {
   final String? name;
   final String? price;
 
-  factory FeatureDatum.fromJson(Map<String, dynamic> json){
+  factory FeatureDatum.fromJson(Map<String, dynamic> json) {
     return FeatureDatum(
       name: json["name"],
       price: json["price"],
     );
   }
-
 }

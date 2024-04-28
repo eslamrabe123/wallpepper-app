@@ -10,6 +10,7 @@ import '../../auth_module/features/register_screen.dart';
 import '../../auth_module/features/splash_screen.dart';
 import '../../lay_out_module/features/favorite_screen.dart';
 import '../../lay_out_module/features/home_screen.dart';
+import '../../lay_out_module/features/offers_screen.dart';
 
 Map<String, Widget Function(BuildContext)> routs = {
 
@@ -23,5 +24,6 @@ Map<String, Widget Function(BuildContext)> routs = {
   HelpView.id: (context) => const HelpView(),
   FavoriteScreen.id: (context) => const FavoriteScreen(),
   PersonalInformationScreen.id: (context) => const PersonalInformationScreen(),
+  OffersScreen.id: (context) => const OffersScreen(),
 
 };

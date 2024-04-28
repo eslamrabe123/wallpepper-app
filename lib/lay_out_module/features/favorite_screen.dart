@@ -23,7 +23,10 @@ class FavoriteScreen extends StatelessWidget {
 
           return Scaffold(
             drawer: DrawerWidget(),
-            body: SafeArea(
+            body:state is GetFavoriteStateLoading ||
+                state is RecommendedStateLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SafeArea(
               child: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
@@ -59,7 +62,7 @@ class FavoriteScreen extends StatelessWidget {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return FavoritesComponent(
-                          nweIndex: index,
+
                           index: index,
                         );
                       },

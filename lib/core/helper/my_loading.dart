@@ -12,15 +12,15 @@ class MyLoading {
       SmartDialog.show(
         clickMaskDismiss: false,
         animationType: SmartAnimationType.scale,
-        animationTime: Duration(milliseconds: 100),
+        animationTime: const Duration(milliseconds: 100),
         keepSingle: true,
         builder: (context) => fullScreen
-            ? loading()
+            ? loadingWidget()
             : Dialog(
           child: SizedBox(
             width: 200,
             height: 200,
-            child: loading(),
+            child: loadingWidget(),
           ),
         ),
       );

@@ -7,10 +7,9 @@ import 'package:wallpapper/shared/textItem.dart';
 
 import '../cubit/lay_out_cubit.dart';
 import '../features/oder_details.dart';
-import '../features/recommended_list_view.dart';
 
 class RecommendedItem extends StatefulWidget {
-  RecommendedItem({
+   RecommendedItem({
     super.key,
     required this.index,
     required this.nweIndex,
@@ -28,11 +27,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LayOutCubit, LayOutState>(
-      listener: (context, state) {
-        if (state is CategoryStateLoading) {
-          const Center(child: CircularProgressIndicator());
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final cubit = LayOutCubit.get(context);
 
@@ -42,8 +37,6 @@ class _RecommendedItemState extends State<RecommendedItem> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => OrderDetails(index: widget.index)));
-            print("index is ${widget.index}");
-            print("new index is ${widget.nweIndex}");
           },
           child: FadeIn(
             duration: const Duration(milliseconds: 500),
@@ -60,7 +53,6 @@ class _RecommendedItemState extends State<RecommendedItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-
                     Row(
                       children: [
                         Padding(
@@ -75,7 +67,8 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                   fit: BoxFit.fill,
                                   image: NetworkImage(
                                     cubit.recommendedModel?.data[widget.index]
-                                            .avatar ?? "",
+                                            .avatar ??
+                                        "",
                                   ),
                                 )),
                           ),
@@ -88,7 +81,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
                               child: TextItem(
                                 text: cubit.recommendedModel?.data[widget.index]
                                         .name ??
-                                    "Error",
+                                    "",
                                 color: const Color(0xff40484E),
                                 textSize: 18,
                                 overflow: TextOverflow.ellipsis,
@@ -99,7 +92,8 @@ class _RecommendedItemState extends State<RecommendedItem> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SvgPicture.asset(
-                                    "assets/images/alarm_icon.svg"),
+                                  "assets/images/alarm_icon.svg",
+                                ),
                                 SizedBox(
                                   width: 5.w,
                                 ),
@@ -145,13 +139,23 @@ class _RecommendedItemState extends State<RecommendedItem> {
                               GestureDetector(
                                 child: SvgPicture.asset(
                                   "assets/images/ionheart-circle.svg",
-                                  color: cubit.isLike == true
+
+                                  color:cubit.recommendedModel
+                                              ?.data[widget.index].isFav ==
+                                          true
                                       ? const Color(0xffFC4747)
                                       : null,
                                 ),
-                                onTap: () async{
-                                  await cubit.toggleFavorite(dishId: widget.index+51);
-                                  cubit.changeFavIconColor();
+                                onTap: () async {
+                                  cubit.changeFavIconColor(index: widget.index);
+
+
+                                  await cubit.toggleFavorite(
+                                    dishId: cubit.recommendedModel
+                                        ?.data[widget.index].id,
+                                  );
+                                  print(
+                                      "Fav is : ${widget.isLike}");
                                 },
                               ),
                             ],

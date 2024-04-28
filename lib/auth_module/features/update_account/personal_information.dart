@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:wallpapper/account_module/cubit/account_cubit.dart';
 import 'package:wallpapper/auth_module/cubit/auth_cubit.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
 import 'package:wallpapper/shared/button_item.dart';
@@ -23,7 +22,7 @@ class PersonalInformationScreen extends StatelessWidget {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return BlocProvider(
-      create: (context) => serviceLocator<AuthCubit>()..login(context: context),
+      create: (context) => serviceLocator<AuthCubit>(),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -55,7 +54,6 @@ class PersonalInformationScreen extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   Scaffold.of(context).openDrawer();
-                                  print(cubit.getUserDataModel?.data?.name);
                                 },
                               );
                             },
@@ -123,7 +121,8 @@ class PersonalInformationScreen extends StatelessWidget {
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
                               await cubit.sendOtp(
-                                  phone: cubit.phoneController.text);
+                                  phone: cubit.phoneController.text,
+                                  context: context);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -44,7 +44,7 @@ class DishesModelDatum {
   final int? rating;
   final int? newDish;
   final int? time;
-  final bool? isFav;
+     bool isFav;
   final Category? category;
   final List<Feature> features;
 

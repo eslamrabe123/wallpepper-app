@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpapper/lay_out_module/domain/model/category_model.dart';
+import 'package:wallpapper/lay_out_module/domain/model/offers_model.dart';
 
 import '../domain/model/get_favorites_model.dart';
 import '../domain/model/recommended_model.dart';
@@ -12,11 +13,25 @@ class LayOutCubit extends Cubit<LayOutState> {
   LayOutRepository layOutRepository;
 
   LayOutCubit(
-      this.layOutRepository,
+    this.layOutRepository,
   ) : super(LayOutInitial());
 
   static LayOutCubit get(context) => BlocProvider.of(context);
   GetFavoritesModel? getFavoritesModel;
+  OffersModel? offersModel;
+
+  getOffers() async {
+    emit(GetOffersStateLoading());
+    final data = await layOutRepository.getOffers();
+    if (data != null) {
+      emit(GetOffersStateSuccess());
+
+      offersModel = data;
+      return offersModel;
+    } else {
+      emit(GetOffersStateError());
+    }
+  }
 
   getFavorite() async {
     emit(GetFavoriteStateLoading());
@@ -31,10 +46,8 @@ class LayOutCubit extends Cubit<LayOutState> {
     }
   }
 
-  bool isLike = false;
-
-  changeFavIconColor() {
-    isLike = !isLike;
+  changeFavIconColor({required int index}) {
+    recommendedModel?.data[index].isFav = !recommendedModel!.data[index].isFav;
     emit(FavState());
     print("Color Changes !");
   }
@@ -68,14 +81,14 @@ class LayOutCubit extends Cubit<LayOutState> {
   RecommendedModel? recommendedModel;
 
   getRecommended() async {
-    emit(RecommendedModelStateLoading());
+    emit(RecommendedStateLoading());
     final data = await layOutRepository.getRecommended();
     if (data != null) {
-      emit(RecommendedModelStateSuccess());
+      emit(RecommendedStateSuccess());
       recommendedModel = data;
       return recommendedModel;
     } else {
-      emit(RecommendedModelStateError());
+      emit(RecommendedStateError());
     }
   }
 

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="238" height="238" viewBox="0 0 238 238">
+  <defs>
+    <filter id="Rectangle_20" x="0" y="0" width="238" height="238" filterUnits="userSpaceOnUse">
+      <feOffset dy="7" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="25" result="blur"/>
+      <feFlood flood-color="#748694" flood-opacity="0.149"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Method_1" data-name="Method 1" transform="translate(-2049 -512)">
+    <g transform="matrix(1, 0, 0, 1, 2049, 512)" filter="url(#Rectangle_20)">
+      <g id="Rectangle_20-2" data-name="Rectangle 20" transform="translate(75 68)" fill="#fff" stroke="#ebeff3" stroke-width="1">
+        <rect width="88" height="88" rx="12" stroke="none"/>
+        <rect x="0.5" y="0.5" width="87" height="87" rx="11.5" fill="none"/>
+      </g>
+    </g>
+    <g id="ion:cash">
+      <path id="Vector" d="M2180,625h-24a1,1,0,1,1,0-2h24a1,1,0,0,1,0,2Z" fill="#62cd73"/>
+      <path id="Vector-2" data-name="Vector" d="M2178,628h-20a1,1,0,1,1,0-2h20a1,1,0,0,1,0,2Z" fill="#62cd73"/>
+      <path id="Vector-3" data-name="Vector" d="M2154,617h-1v3a2,2,0,0,0,2,2h3v-1a4,4,0,0,0-4-4Z" fill="#62cd73"/>
+      <path id="Vector-4" data-name="Vector" d="M2176,622h-16v-1a6.007,6.007,0,0,0-6-6h-1v-4h1a6.007,6.007,0,0,0,6-6v-1h16v1a6.006,6.006,0,0,0,6,6h1v4h-1a6.006,6.006,0,0,0-6,6v1Zm-8-15a6,6,0,1,0,2.3.457A6.016,6.016,0,0,0,2168,607Z" fill="#62cd73"/>
+      <circle id="Vector-5" data-name="Vector" cx="4" cy="4" r="4" transform="translate(2164 609)" fill="#62cd73"/>
+      <path id="Vector-6" data-name="Vector" d="M2178,621v1h3a2,2,0,0,0,2-2v-3h-1a4,4,0,0,0-4,4Z" fill="#62cd73"/>
+      <path id="Vector-7" data-name="Vector" d="M2182,609h1v-3a2,2,0,0,0-2-2h-3v1a4,4,0,0,0,4,4Z" fill="#62cd73"/>
+      <path id="Vector-8" data-name="Vector" d="M2158,605v-1h-3a2,2,0,0,0-2,2v3h1a4,4,0,0,0,4-4Z" fill="#62cd73"/>
+    </g>
+    <text id="Cash" transform="translate(2152 652.106)" fill="#40484e" font-size="14" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Cash</tspan></text>
+  </g>
+</svg>

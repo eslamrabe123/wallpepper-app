@@ -1,8 +1,6 @@
-import 'package:wallpapper/core/helper/alerts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wallpapper/core/local/api/api.dart';
 import 'package:wallpapper/order_module/domain/model/completed_orders_model.dart';
-import 'package:wallpapper/shared/textItem.dart';
-
 import '../model/order_config_model.dart';
 import '../model/pendingOrders-model.dart';
 
@@ -21,7 +19,7 @@ class OrderRepository {
           PendingOrdersModel.fromJson(response.response?.data);
       return pendingOrders;
     } else {
-      // Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(msg: response.response?.data["message"]);
 
     }
   }
@@ -36,7 +34,7 @@ class OrderRepository {
           CompletedOrdersModel.fromJson(response.response?.data);
       return completedOrdersModel;
     } else {
-      // Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(msg: response.response?.data["message"]);
 
     }
   }
@@ -50,7 +48,7 @@ class OrderRepository {
       orderConfigModel = OrderConfigModel.fromjson(response.response?.data);
       return orderConfigModel;
     } else {
-      // Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(msg: response.response?.data["message"]);
     }
   }
 }
