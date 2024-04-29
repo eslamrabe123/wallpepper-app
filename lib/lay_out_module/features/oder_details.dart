@@ -40,9 +40,7 @@ class OrderDetailContent extends StatelessWidget {
     return BlocBuilder<LayOutCubit, LayOutState>(
       builder: (context, state) {
         final cubit = LayOutCubit.get(context);
-        return state is RecommendedStateLoading
-            ? const Center(child: CircularProgressIndicator())
-            : CustomScrollView(
+        return CustomScrollView(
           slivers: [
             SliverAppBar(
               leading: IconButton(

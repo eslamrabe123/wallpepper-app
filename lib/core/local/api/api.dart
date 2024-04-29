@@ -6,14 +6,12 @@ import '../../helper/alerts.dart';
 import '../../utiles/utils.dart';
 import 'dart:async';
 
-
+String baseUrl = "";
 
 class DioService {
   Dio _mydio = Dio();
 
-  DioService(
-      {String baseUrl = "",
-      BaseOptions? options}) {
+  DioService({String baseUrl = "", BaseOptions? options}) {
     _mydio = Dio(BaseOptions(
         headers: {
           "Accept": "application/json",
@@ -197,8 +195,7 @@ class DioService {
       return ApiResponse(isError: false, response: response);
     } else {
       // Alerts.snack(text: response.data["message"], state: SnackState.failed);
-       return
-        ApiResponse(isError: true, response: response);
+      return ApiResponse(isError: true, response: response);
     }
   }
 }

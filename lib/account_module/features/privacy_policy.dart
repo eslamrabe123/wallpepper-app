@@ -37,7 +37,7 @@ class PrivacyAndPolicyView extends StatelessWidget {
                       textColor: const Color(0xff40484E),
                       leading: IconButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, HomeScreen.id);
+                            Navigator.pop(context);
                           },
                           icon: SvgPicture.asset("assets/images/Back.svg")),
                       action: SizedBox(
@@ -55,7 +55,7 @@ class PrivacyAndPolicyView extends StatelessWidget {
                       height: 15.h,
                     ),
                     Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
+                      padding: EdgeInsets.symmetric(horizontal: 8.0.r),
                       child: ButtonItem(
                         onPressed: () {
                           Navigator.pushNamed(context, HelpView.id);

@@ -87,15 +87,11 @@ class _SettingLayOut extends State<OrderLayOut>
                       color: AppColors.textColor,
                       icon: const Icon(Icons.arrow_back_ios),
                       onPressed: () {
-                         Navigator.pop(context);
-                         Navigator.pop(context);
-
+                        Navigator.pop(context);
                       },
                     ),
                     action: IconButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       icon: SvgPicture.asset(
                         "assets/images/Option.svg",
                         color: AppColors.textColor,
@@ -123,7 +119,6 @@ class _SettingLayOut extends State<OrderLayOut>
                       physics: const NeverScrollableScrollPhysics(),
                       controller: tabController,
                       children: const [
-
                         CompletedOrdersComponent(),
                         PendingOrdersComponent(),
                       ],

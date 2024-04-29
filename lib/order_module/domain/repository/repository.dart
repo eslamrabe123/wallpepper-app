@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wallpapper/core/local/api/api.dart';
 import 'package:wallpapper/order_module/domain/model/completed_orders_model.dart';
+import '../../../core/themes/color_themes.dart';
 import '../model/order_config_model.dart';
 import '../model/pendingOrders-model.dart';
 
@@ -13,14 +15,20 @@ class OrderRepository {
 
   pendingOrders() async {
     final response =
-    await dioService.getData(url: "pending-order", loading: true);
+        await dioService.getData(url: "pending-order", loading: true);
     if (response.isError == false) {
-      pendingOrdersModel =
-          PendingOrdersModel.fromJson(response.response?.data);
+      pendingOrdersModel = PendingOrdersModel.fromJson(response.response?.data);
       return pendingOrders;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
-
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 
@@ -34,8 +42,15 @@ class OrderRepository {
           CompletedOrdersModel.fromJson(response.response?.data);
       return completedOrdersModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
-
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 
@@ -48,7 +63,15 @@ class OrderRepository {
       orderConfigModel = OrderConfigModel.fromjson(response.response?.data);
       return orderConfigModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 }

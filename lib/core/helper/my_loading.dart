@@ -7,7 +7,7 @@ class MyLoading {
   static bool shown = false;
 
   static show({
-    bool fullScreen = true,
+    bool fullScreen = false,
   }) {
     if (shown == false) {
       SmartDialog.show(
@@ -20,7 +20,12 @@ class MyLoading {
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                child: loadingWidget())
+                child: SizedBox(
+                  width: 50.w,
+                  height: 50.h,
+                  child: loadingWidget(),
+                ),
+              )
             : Dialog(
                 child: SizedBox(
                   width: 200,
@@ -36,8 +41,7 @@ class MyLoading {
 
   static LottieBuilder loadingWidget() => Lottie.asset(
         "assets/json/food_loading.json",
-        height: 150.h,
-        width: 150.w,
+        fit: BoxFit.contain,
       );
 
   static Center loading() => const Center(child: CircularProgressIndicator());

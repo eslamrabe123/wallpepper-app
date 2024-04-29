@@ -7,7 +7,6 @@ import 'package:wallpapper/auth_module/cubit/auth_state.dart';
 import '../domain/models/user_data_model.dart';
 import '../domain/repository/aut_repository.dart';
 import '../../../core/utiles/shared.dart';
-import '../../../core/utiles/utils.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepository) : super(AuthInitial());
@@ -38,10 +37,9 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  register({required BuildContext context,required String phoneNumber}) async {
+  register({required BuildContext context, required String phoneNumber}) async {
     emit(RegisterLoadingState());
-    final result =
-        await authRepository.register(phoneNumber: phoneNumber);
+    final result = await authRepository.register(phoneNumber: phoneNumber);
     if (result != null) {
       emit(RegisterSuccessState());
 
@@ -51,11 +49,15 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  completeRegister({required BuildContext context, String phone = ''}) async {
+  completeRegister({
+    required String phone,
+    required String name,
+    required String password,
+  }) async {
     emit(CompleteRegisterLoadingState());
     final result = await authRepository.completeRegister(
-      password: setPasswordController.text.trim(),
-      name: setNameController.text.trim(),
+      password: password,
+      name: name,
       phoneNumber2: phone,
     );
     if (result != null) {
@@ -77,16 +79,8 @@ class AuthCubit extends Cubit<AuthState> {
     );
     if (result != null) {
       emit(LoginSuccessState());
-      CacheHelper.saveData(
-          key: "token", value: result.response?.data['access_token']);
-      Utils.token = CacheHelper.loadData(key: "token");
 
-      CacheHelper.saveData(
-          key: 'name', value: result.response?.data["data"]["name"]);
-      Utils.name = CacheHelper.loadData(key: 'name');
-      CacheHelper.saveData(
-          key: 'phone', value: result.response?.data["data"]["phone"]);
-      Utils.phone = CacheHelper.loadData(key: 'phone');
+      return result;
     } else {
       emit(LoginErrorState());
     }

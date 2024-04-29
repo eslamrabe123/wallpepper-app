@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wallpapper/core/themes/color_themes.dart';
 import 'package:wallpapper/lay_out_module/domain/model/category_model.dart';
 
 import '../../../core/local/api/api.dart';
@@ -19,7 +21,15 @@ class LayOutRepository {
       offersModel = OffersModel.fromJson(response.response?.data);
       return offersModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 
@@ -31,7 +41,15 @@ class LayOutRepository {
       getFavoritesModel = GetFavoritesModel.fromJson(response.response?.data);
       return getFavoritesModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
   }
 
@@ -41,7 +59,15 @@ class LayOutRepository {
     if (response.isError == false) {
       return response.response?.data;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 
@@ -56,7 +82,15 @@ class LayOutRepository {
       categoryModel = CategoryModel.fromJson(response.response?.data);
       return categoryModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 
@@ -65,13 +99,21 @@ class LayOutRepository {
   getRecommended() async {
     final response = await dioService.getData(
       url: "dishes",
-      loading: false,
+      loading: true,
     );
     if (response.isError == false) {
       recommendedModel = RecommendedModel.fromJson(response.response?.data);
       return recommendedModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primiry,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 }

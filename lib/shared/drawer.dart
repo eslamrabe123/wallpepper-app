@@ -21,6 +21,12 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      shape: ShapeBorder.lerp(
+        const ContinuousRectangleBorder(),
+        const ContinuousRectangleBorder(),
+        1.0,
+      ),
+      width: MediaQuery.of(context).size.width / 1.5.w,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [

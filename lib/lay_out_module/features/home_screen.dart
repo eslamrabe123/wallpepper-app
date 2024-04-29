@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive/hive.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
 import '../../shared/custom_appbar.dart';
 import '../../shared/textItem.dart';
@@ -53,16 +52,8 @@ class HomeScreen extends StatelessWidget {
                             },
                           ),
                           action: TextButton(
-                            onPressed: () async {
-                              var box = await Hive.openBox('testBox');
-
-                              box.put('name', 'David');
-                              box.add('eslam');
-                              box.delete('name');
-
-                              print('Name: ${box.get('name')}');
-                            },
-                            child: const Text("clixk"),
+                            onPressed: () {},
+                            child: const Text(""),
                           ),
                           padding: 0.0,
                         ),
