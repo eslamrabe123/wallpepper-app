@@ -1,5 +1,5 @@
 class PendingOrdersModel {
-  PendingOrdersModel({
+  const PendingOrdersModel({
     required this.data,
     required this.status,
   });
@@ -7,11 +7,12 @@ class PendingOrdersModel {
   final List<dynamic> data;
   final int? status;
 
-  factory PendingOrdersModel.fromJson(Map<String, dynamic> json){
+  factory PendingOrdersModel.fromJson(Map<String, dynamic> json) {
     return PendingOrdersModel(
-      data: json["data"] == null ? [] : List<dynamic>.from(json["data"]!.map((x) => x)),
+      data: json["data"] == null
+          ? []
+          : List<dynamic>.from(json["data"]!.map((x) => x)),
       status: json["status"],
     );
   }
-
 }

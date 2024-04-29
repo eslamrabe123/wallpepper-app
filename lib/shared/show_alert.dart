@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallpapper/shared/textItem.dart';
 
 import '../auth_module/features/login_screen.dart';
-import '../core/themes/color_themes.dart';
+import '../core/themes/app_colors/app_colors_light.dart';
 import '../core/utiles/shared.dart';
 
-Future<dynamic> showDialog({required BuildContext context, required Container Function(dynamic context) builder}) {
+Future<dynamic> showDialog(
+    {required BuildContext context,
+    required Container Function(dynamic context) builder}) {
   return showDialog(
     context: context,
     builder: (context) => Container(
@@ -14,8 +16,7 @@ Future<dynamic> showDialog({required BuildContext context, required Container Fu
       height: 200.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors
-            .white, // Set the background color of the dialog to white
+        color: Colors.white, // Set the background color of the dialog to white
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -27,7 +28,7 @@ Future<dynamic> showDialog({required BuildContext context, required Container Fu
           const TextItem(
             text: " Log Out ?",
             textSize: 20,
-            color: AppColors.textColor,
+            color: AppColorLight.textMainColor,
             fontWeight: FontWeight.w600,
             textAlign: TextAlign.center,
           ),
@@ -35,8 +36,7 @@ Future<dynamic> showDialog({required BuildContext context, required Container Fu
             height: 35.h,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: 25.0.r, vertical: 8.0.r),
+            padding: EdgeInsets.symmetric(horizontal: 25.0.r, vertical: 8.0.r),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -47,7 +47,7 @@ Future<dynamic> showDialog({required BuildContext context, required Container Fu
                   },
                   child: const TextItem(
                     text: "cancel",
-                    color: AppColors.textColorRed,
+                    color: AppColorLight.textMainColor,
                     fontWeight: FontWeight.w600,
                     textSize: 18,
                   ),
@@ -60,7 +60,7 @@ Future<dynamic> showDialog({required BuildContext context, required Container Fu
                     },
                     child: const TextItem(
                       text: "confirm",
-                      color: AppColors.textColorGreen,
+                      color: AppColorLight.textColorGereen,
                       fontWeight: FontWeight.w600,
                       textSize: 18,
                     )),

@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive/hive.dart';
+import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_dark.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 import '../../shared/custom_appbar.dart';
 import '../../shared/textItem.dart';
 import '../../shared/text_field_item.dart';
@@ -30,7 +33,7 @@ class HomeScreen extends StatelessWidget {
           final cubit = LayOutCubit.get(context);
 
           return Scaffold(
-            drawer: const DrawerWidget(),
+            drawer: DrawerWidget(),
             body: SafeArea(
               child: CustomScrollView(
                 slivers: [
@@ -38,67 +41,92 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        CustomAppBar(
-                          title: "Logo here",
-                          leading: Builder(
-                            builder: (BuildContext context) {
-                              return IconButton(
-                                icon: SvgPicture.asset(
-                                  "assets/images/Button Menu.svg",
-                                ),
-                                onPressed: () {
-                                  Scaffold.of(context).openDrawer();
-                                },
-                              );
-                            },
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.r,
+                            vertical: 8.0.r,
                           ),
-                          action: TextButton(
-                            onPressed: () async {
-                              var box = await Hive.openBox('testBox');
-
-                              box.put('name', 'David');
-                              box.add('eslam');
-                              box.delete('name');
-
-                              print('Name: ${box.get('name')}');
-                            },
-                            child: const Text("clixk"),
+                          child: CustomAppBar(
+                            title: "Logo here",
+                            textColor: AppColorLight.primaryColor,
+                            leading: Builder(
+                              builder: (BuildContext context) {
+                                return IconButton(
+                                  icon: SvgPicture.asset(
+                                    "assets/images/Button Menu.svg",
+                                    // ignore: deprecated_member_use
+                                    color:
+                                        context.read<GeneralCubit>().islight ==
+                                                true
+                                            ? AppColorLight.textMainColor
+                                            : Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Scaffold.of(context).openDrawer();
+                                  },
+                                );
+                              },
+                            ),
+                            action: TextButton(
+                              onPressed: () {
+                                // context.read<GeneralCubit>().changeTeme();
+                              },
+                              child: Text(
+                                ''.tr(),
+                              ),
+                            ),
+                            padding: 0.0,
                           ),
-                          padding: 0.0,
                         ),
                         SizedBox(
                           height: 25.h,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.0.r),
-                          child: const TextItem(
-                            text: 'Hello Babe!',
-                            textSize: 16,
+                          padding: EdgeInsets.symmetric(horizontal: 25.0.r),
+                          child: TextItem(
+                            text: 'hello_babe'.tr(),
+                            textSize: 16.sp,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xff959FA8),
+                            color: context.read<GeneralCubit>().islight == true
+                                ? AppColorLight.textHintColor
+                                : Colors.white,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.0.r),
-                          child: const TextItem(
-                            text: 'Please call me Now 💋!',
+                          padding: EdgeInsets.symmetric(horizontal: 25.0.r),
+                          child: TextItem(
+                            text: 'please_call_me_now'.tr(),
                             textSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xffCB0006),
+                            fontWeight: FontWeight.w900,
+                            color: AppColorLight.primaryColor,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.0.r),
+                          padding: EdgeInsets.symmetric(horizontal: 25.0.r),
                           child: TextFieldItem(
-                            hintText: "Search",
+                            hintText: "search".tr(),
+                            hintColor:
+                                context.read<GeneralCubit>().islight == true
+                                    ? AppColorLight.textHintColor
+                                    : Colors.white,
                             suffixIcon: IconButton(
                               onPressed: () {},
-                              icon: const Icon(
-                                Icons.filter_alt_outlined,
+                              icon: SvgPicture.asset(
+                                'assets/images/ionoptions.svg',
+                                color:
+                                    context.read<GeneralCubit>().islight == true
+                                        ? null
+                                        : Colors.white,
                               ),
                             ),
                             prefixIcon: IconButton(
-                              icon: const Icon(Icons.search),
+                              icon: SvgPicture.asset(
+                                "assets/images/ionsearch-outline.svg",
+                                color:
+                                    context.read<GeneralCubit>().islight == true
+                                        ? null
+                                        : Colors.white,
+                              ),
                               onPressed: () {},
                             ),
                             onChange: (v) {},
@@ -111,66 +139,82 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SliverPadding(
                     padding: EdgeInsets.only(
-                      left: 10.0.r,
-                      right: 10.0.r,
-                      top: 16.0.r,
+                      left: 14.0.w,
+                      right: 10.0.w,
+                      top: 16.0.h,
                     ),
                     sliver: SliverToBoxAdapter(
                       child: SizedBox(
-                        height: 120,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: cubit.categoryModel?.data.length ?? 5,
-                          itemBuilder: (context, index) {
-                            return CategoryItem(
-                              index: index,
-                            );
-                          },
-                        ),
+                        height: 95.h,
+                        child: state is CategoryStateLoading ||
+                                state is RecommendedStateLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColorLight.primaryColor,
+                                ),
+                              )
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                    cubit.categoryModel?.data.length ?? 5,
+                                itemBuilder: (context, index) {
+                                  return CategoryItem(
+                                    index: index,
+                                  );
+                                },
+                              ),
                       ),
                     ),
                   ),
                   SliverPadding(
                     padding: EdgeInsets.only(
-                      left: 16.0.r,
-                      right: 4.0.r,
+                      left: 25.0.r,
+                      right: 10.0.r,
                     ),
                     sliver: SliverToBoxAdapter(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const TextItem(
-                            text: "Recommended",
-                            color: Color(0xff40484E),
+                          TextItem(
+                            text: "recommended".tr(),
                             textSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RecommendedListView()));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  const TextItem(
-                                    text: "See all",
-                                    color: Color(0xffFC4747),
-                                    textSize: 14,
-                                  ),
-                                  SizedBox(
-                                    width: 5.w,
-                                  ),
-                                  const Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 16.0,
-                                    color: Color(0xffFC4747),
-                                  )
-                                ],
+                          Material(
+                            borderRadius: BorderRadius.circular(
+                              15.0,
+                            ),
+                            color: Colors
+                                .transparent, // Set the background color of the button
+                            child: InkWell(
+                              focusColor: Colors.transparent,
+                              highlightColor: Colors.red,
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RecommendedListView()));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    TextItem(
+                                      text: "see_all".tr(),
+                                      color: AppColorLight.allColor,
+                                      textSize: 14,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    const Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 16.0,
+                                      color: AppColorLight.allColor,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -178,8 +222,17 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  cubit.currentIndex == 0
-                      ? SliverList(
+                  state is CategoryStateLoading ||
+                          state is RecommendedStateLoading
+                      ? const SliverToBoxAdapter(
+                          child: Center(
+                            heightFactor: 10.0,
+                            child: CircularProgressIndicator(
+                              color: AppColorLight.primaryColor,
+                            ),
+                          ),
+                        )
+                      : SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               cubit.index = index;
@@ -190,24 +243,6 @@ class HomeScreen extends StatelessWidget {
                               );
                             },
                             childCount: 5,
-                          ),
-                        )
-                      : SliverToBoxAdapter(
-                          child: Center(
-                            heightFactor: 3.0,
-                            child: Container(
-                              padding: EdgeInsets.all(16.r),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.amber,
-                              ),
-                              child: const TextItem(
-                                text: "IN PROGRESS !",
-                                color: Colors.white,
-                                textSize: 40,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
                           ),
                         )
                 ],

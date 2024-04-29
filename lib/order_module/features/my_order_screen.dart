@@ -1,20 +1,28 @@
-import 'package:animate_do/animate_do.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 import 'package:wallpapper/order_module/cubit/order_cubit.dart';
+import 'package:wallpapper/order_module/features/check_out_screen.dart';
 import 'package:wallpapper/shared/textItem.dart';
-import '../../core/themes/color_themes.dart';
 import '../../shared/custom_appbar.dart';
+import '../component/order_item.dart';
 
-class MyOrderView extends StatelessWidget {
-  const MyOrderView({super.key});
+class MyCartScreen extends StatefulWidget {
+  const MyCartScreen({super.key});
 
   static String id = "MyOrderView";
 
+  @override
+  State<MyCartScreen> createState() => _MyCartScreenState();
+}
+
+class _MyCartScreenState extends State<MyCartScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -23,306 +31,193 @@ class MyOrderView extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           final cubit = OrderCubit.get(context);
+          String deliveryFee = cubit.orderConfigModel?.data.deliveryFee ?? "";
+          String tax = cubit.orderConfigModel?.data.tax ?? "";
+
+          // int inTax = int.parse(tax);
+          // int intDeliveryFee = int.parse(deliveryFee);
 
           return CupertinoPageScaffold(
-            child: SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 10.h,
+            child: state is OrderConfigStateLoading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColorLight.primaryColor,
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: CustomAppBar(
-                      title: "My Order",
-                      textSize: 20,
-                      textColor: const Color(0xff40484E),
-                      leading: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.arrow_back_ios)),
-                      action: TextButton(
-                        onPressed: () {},
-                        child: SvgPicture.asset("assets/images/Option.svg"),
-                      ),
-                      padding: 0.0,
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            print("index is ${index}");
-                          },
-                          child: FadeIn(
-                            duration: const Duration(milliseconds: 500),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.0.r, vertical: 8.0.r),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(.1),
-                                  borderRadius: BorderRadius.circular(10),
+                  )
+                : SafeArea(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 10.h,
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 12,
+                            ),
+                            child: CustomAppBar(
+                              title: "my_orders".tr(),
+                              textSize: 20,
+                              leading: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(Icons.arrow_back_ios)),
+                              action: TextButton(
+                                onPressed: () {},
+                                child: SvgPicture.asset(
+                                  "assets/images/Option.svg",
+                                  // ignore: deprecated_member_use
+                                  color: context.read<GeneralCubit>().islight ==
+                                          true
+                                      ? null
+                                      : Colors.white,
                                 ),
-                                width: double.infinity,
-                                child: Row(
+                              ),
+                              padding: 0.0,
+                            ),
+                          ),
+                        ),
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return OrderItem(
+                                index: index,
+                                model: cubit.itemModel[index],
+                              );
+                            },
+                            childCount: cubit.itemModel.length,
+                          ),
+                        ),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.0.r, vertical: 12),
+                          sliver: SliverToBoxAdapter(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const Row(
                                   children: [
-                                    Container(
-                                      width: 100,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          image: const DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
-                                              "https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbGlmZW9mcGl4MDAwMDEtaW1hZ2VfMS1renhsdXd3ci5wbmc.png",
-                                            ),
-                                          )),
+                                    TextItem(
+                                      text: "Sub Total",
+                                      textSize: 14,
                                     ),
-                                    SizedBox(
-                                      width: 5.w,
+                                    Spacer(),
+                                    TextItem(
+                                      text: "\$ 21.14",
+                                      textSize: 14,
                                     ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(
-                                          width: 100,
-                                          child: TextItem(
-                                            text: "burger",
-                                            color: Color(0xff40484E),
-                                            textSize: 18,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLine: 1,
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            SvgPicture.asset(
-                                                "assets/images/alarm_icon.svg"),
-                                            SizedBox(
-                                              width: 5.w,
-                                            ),
-                                            const TextItem(
-                                              text: " 65 min",
-                                              color: Color(0xff959FA8),
-                                              fontWeight: FontWeight.w600,
-                                              textSize: 14,
-                                            )
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            const TextItem(
-                                              text: "SAR ",
-                                              color: Color(0xff777777),
-                                              textSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            SizedBox(
-                                              width: 5.w,
-                                            ),
-                                            const TextItem(
-                                              text: "price ",
-                                              color: Color(0xffCB0006),
-                                              fontWeight: FontWeight.w700,
-                                              textSize: 18,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Row(
+                                  children: [
+                                    TextItem(
+                                      text: "tax".tr(),
+                                      textSize: 14,
                                     ),
                                     const Spacer(),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                    TextItem(
+                                      text: "\$ $tax",
+                                      textSize: 14,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Row(
+                                  children: [
+                                    const TextItem(
+                                      text: "Delivery Free",
+                                      textSize: 14,
+                                    ),
+                                    const Spacer(),
+                                    TextItem(
+                                      text: "\$ $deliveryFee",
+                                      textSize: 14,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                const Divider(),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Row(
+                                  children: [
+                                    TextItem(
+                                      fontWeight: FontWeight.bold,
+                                      text: "total".tr(),
+                                      textSize: 18,
+                                    ),
+                                    const Spacer(),
+                                    const TextItem(
+                                      fontWeight: FontWeight.bold,
+                                      text: "\$ 36",
+                                      color: AppColorLight.primaryColor,
+                                      textSize: 18,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                        builder: (context) => CheckOutView(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      color: AppColorLight.buttomColor,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Row(
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsets.only(right: 25.0.r),
-                                          child: GestureDetector(
-                                            child: SvgPicture.asset(
-                                              "assets/images/iontrash.svg",
-                                            ),
-                                            onTap: () {},
-                                          ),
+                                        const Spacer(
+                                          flex: 10,
                                         ),
-                                        Row(
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                cubit.minas();
-                                              },
-                                              child: const TextItem(
-                                                text: "ــ",
-                                                textSize: 14,
-                                                color: Color(0xffFC4747),
-                                              ),
-                                            ),
-                                            TextItem(
-                                              text: cubit.x.toString(),
-                                              textSize: 14,
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                cubit.add();
-                                              },
-                                              child: const TextItem(
-                                                text: "+",
-                                                textSize: 14,
-                                                color: Color(0xffFC4747),
-                                              ),
-                                            ),
-                                          ],
+                                        const TextItem(
+                                          textAlign: TextAlign.center,
+                                          text: "Checkout",
+                                          color: Colors.white,
+                                          textSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        const Spacer(
+                                          flex: 1,
+                                        ),
+                                        SvgPicture.asset(
+                                          "assets/images/checkout_icon.svg",
+                                        ),
+                                        const Spacer(
+                                          flex: 10,
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        );
-                      },
-                      childCount: 7,
+                        ),
+                      ],
                     ),
                   ),
-                  SliverPadding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0.r, vertical: 12),
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Row(
-                            children: [
-                              TextItem(
-                                text: "Sub Total",
-                                color: AppColors.textColor,
-                                textSize: 14,
-                              ),
-                              Spacer(),
-                              TextItem(
-                                text: "\$ 21.14",
-                                color: AppColors.textColor,
-                                textSize: 14,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            children: [
-                              const TextItem(
-                                text: "Tax",
-                                color: AppColors.textColor,
-                                textSize: 14,
-                              ),
-                              const Spacer(),
-                              TextItem(
-                                text: cubit.orderConfigModel?.data.tax ?? '',
-                                color: AppColors.textColor,
-                                textSize: 14,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            children: [
-                              const TextItem(
-                                text: "Delivery Fee",
-                                color: AppColors.textColor,
-                                textSize: 14,
-                              ),
-                              const Spacer(),
-                              TextItem(
-                                text:
-                                    "\$  ${cubit.orderConfigModel?.data.deliveryFee ?? ''}",
-                                color: AppColors.textColor,
-                                textSize: 14,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          const Divider(),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          const Row(
-                            children: [
-                              TextItem(
-                                text: "Total",
-                                color: AppColors.textColor,
-                                textSize: 18,
-                              ),
-                              Spacer(),
-                              TextItem(
-                                text: "\$  24.64",
-                                color: AppColors.textColor,
-                                textSize: 18,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: AppColors.buttonColor,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Center(
-                              child: TextButton(
-                                onPressed: () {},
-                                child: Row(
-                                  children: [
-                                    const Spacer(
-                                      flex: 10,
-                                    ),
-                                    const TextItem(
-                                      textAlign: TextAlign.center,
-                                      text: "Checkout",
-                                      color: Colors.white,
-                                      textSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    const Spacer(
-                                      flex: 1,
-                                    ),
-                                    SvgPicture.asset(
-                                      "assets/images/checkout_icon.svg",
-                                    ),
-                                    const Spacer(
-                                      flex: 10,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           );
         },
       ),

@@ -12,6 +12,7 @@ class TextItem extends StatelessWidget {
     this.textAlign,
     this.overflow,
     this.maxLine,
+    this.height,
   });
 
   final String text;
@@ -22,21 +23,24 @@ class TextItem extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? overflow;
   final int? maxLine;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Text(
+
       softWrap: true,
       maxLines: maxLine,
       overflow: overflow,
       text,
       textAlign: textAlign,
-      style: GoogleFonts.nunito(
+      style: TextStyle(
+        fontFamily: 'Nunito',
         decoration: textDecoration,
         color: color,
         fontSize: textSize ?? 14,
-        fontWeight: fontWeight ?? FontWeight.w500,
-        // height: 0.09,
+        fontWeight: fontWeight ?? FontWeight.normal,
+        height: height,
       ),
     );
   }

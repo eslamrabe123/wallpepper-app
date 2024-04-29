@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallpapper/auth_module/features/login_screen.dart';
 import 'package:wallpapper/auth_module/features/register_screen.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
-import 'package:wallpapper/lay_out_module/features/home_screen.dart';
 import 'package:wallpapper/shared/textItem.dart';
+import '../../core/themes/app_colors/app_colors_light.dart';
 import '../../core/themes/color_themes.dart';
 import '../../shared/button_item.dart';
 import '../cubit/auth_cubit.dart';
@@ -57,9 +58,9 @@ class _OnBoardView extends State<OnBoardView> {
                       ),
                       const Spacer(),
                       // SizedBox(height: 100.h,),
-                      const TextItem(
+                      TextItem(
                         textAlign: TextAlign.center,
-                        text: "Welcome Dude!",
+                        text: "welcome_dude".tr(),
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                         textSize: 30,
@@ -68,12 +69,12 @@ class _OnBoardView extends State<OnBoardView> {
                         height: 35.h,
                       ),
                       ButtonItem(
-                        borderColor: AppColors.buttonColor,
-                        buttonColor: AppColors.buttonColor,
+                        borderColor: AppColorLight.primaryColor,
+                        buttonColor: AppColorLight.primaryColor,
                         onPressed: () {
                           Navigator.pushNamed(context, LoginView.id);
                         },
-                        text: 'Order Now',
+                        text: 'order_now'.tr(),
                       ),
 
                       const CreateNewAccountButtonItem(),
@@ -103,9 +104,9 @@ class CreateNewAccountButtonItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const TextItem(
-              text: 'Don’t have Account?',
-              color: Color(0xFFffffff),
+            TextItem(
+              text: 'dont_have_account'.tr(),
+              color: const Color(0xFFffffff),
             ),
             Padding(
               padding: const EdgeInsets.all(0.0),
@@ -113,9 +114,9 @@ class CreateNewAccountButtonItem extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed(RegisterView.id);
                 },
-                child: const TextItem(
-                  text: 'Register Now',
-                  color: Color(0xffCB0006),
+                child: TextItem(
+                  text: 'register_now'.tr(),
+                  color: const Color(0xffCB0006),
                   fontWeight: FontWeight.w600,
                 ),
               ),

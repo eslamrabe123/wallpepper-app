@@ -1,24 +1,21 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wallpapper/core/utiles/shared.dart';
 
-
-
-
 class Utils {
+  static bool? isLight = CacheHelper.loadData(key: "theme") ?? true;
   static bool? intro;
-  static String token= CacheHelper.loadData(key: "token")??'' ;
+  static String token = CacheHelper.loadData(key: "token") ?? '';
   static bool isLogin = true;
   static bool dataCompleted = false;
   static bool onBoard = true;
   static bool start = true;
   static bool FirstOpen = true;
-  static String name =  CacheHelper.loadData(key: "name")??'' ;
+  static String name = CacheHelper.loadData(key: "name") ?? '';
   static String UserId = '';
   static String email = '';
-  static String phone =  CacheHelper.loadData(key: "phone")??'' ;
+  static String phone = CacheHelper.loadData(key: "phone") ?? '';
   static String FCMToken = '';
   static String UserImage = '';
   static String complaint_phone = '';
@@ -39,62 +36,62 @@ class Utils {
     showDialog(
         context: context,
         builder: (context) => Dialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0)),
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Align(
-                    alignment: AlignmentDirectional.topEnd,
-                    child: GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: const Icon(Icons.clear))),
-                SizedBox(height: 16.h),
-                SvgPicture.asset("assets/images/mark.svg"),
-                SizedBox(height: 16.h),
-                // TextWidget(
-                //     title,
-                //     fontSize: 16.sp,
-                //     fontWeight: FontWeight.bold),
-                // SizedBox(
-                //   height: 50.h,
-                // ),
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: ButtonWidget(
-                //         title: buttonText,
-                //         height: 0.13.sw,
-                //         onTap: onTap,
-                //         textColor: Colors.white,
-                //         withBorder: true,
-                //         borderColor: AppColors.primiry,
-                //         buttonColor: AppColors.primiry,
-                //       ),
-                //     ),
-                //     20.pw,
-                //     Expanded(
-                //       child: ButtonWidget(
-                //         title: buttonTextTwo,
-                //         height: 0.13.sw,
-                //
-                //         onTap: onCancel,
-                //         textColor: mainColor,
-                //         withBorder: true,
-                //         borderColor: mainColor,
-                //         buttonColor: Colors.white,
-                //       ),
-                //     ),
-                //   ],
-                // )
-              ],
-            ),
-          ),
-        ));
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)),
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Align(
+                        alignment: AlignmentDirectional.topEnd,
+                        child: GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: const Icon(Icons.clear))),
+                    SizedBox(height: 16.h),
+                    SvgPicture.asset("assets/images/mark.svg"),
+                    SizedBox(height: 16.h),
+                    // TextWidget(
+                    //     title,
+                    //     fontSize: 16.sp,
+                    //     fontWeight: FontWeight.bold),
+                    // SizedBox(
+                    //   height: 50.h,
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: ButtonWidget(
+                    //         title: buttonText,
+                    //         height: 0.13.sw,
+                    //         onTap: onTap,
+                    //         textColor: Colors.white,
+                    //         withBorder: true,
+                    //         borderColor: AppColors.primiry,
+                    //         buttonColor: AppColors.primiry,
+                    //       ),
+                    //     ),
+                    //     20.pw,
+                    //     Expanded(
+                    //       child: ButtonWidget(
+                    //         title: buttonTextTwo,
+                    //         height: 0.13.sw,
+                    //
+                    //         onTap: onCancel,
+                    //         textColor: mainColor,
+                    //         withBorder: true,
+                    //         borderColor: mainColor,
+                    //         buttonColor: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // )
+                  ],
+                ),
+              ),
+            ));
   }
 
   static const ThemeMode appMode = ThemeMode.light;
@@ -103,12 +100,13 @@ class Utils {
     if (context == null) {
       return;
     }
+
     /// test
     if (remove) {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => screen),
-            (route) => false,
+        (route) => false,
       );
     } else if (replacment) {
       Navigator.pushReplacement(
@@ -136,7 +134,7 @@ class Utils {
         }
         Navigator.pop(context);
       },
-      child:Icon(
+      child: Icon(
         Icons.arrow_back_ios,
         color: Colors.red,
       ),
@@ -187,12 +185,11 @@ extension Photo on String {
 
 extension EmptyPadding on num {
   SizedBox get ph => SizedBox(
-    height: toDouble().h,
-  );
+        height: toDouble().h,
+      );
   SizedBox get pw => SizedBox(
-    width: toDouble().w,
-  );
-
+        width: toDouble().w,
+      );
 }
 
 // Widget notificationIcon(BuildContext context) {

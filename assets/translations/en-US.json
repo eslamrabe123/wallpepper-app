@@ -1,0 +1,90 @@
+{
+    "hello_babe" : "Hello Babe!",
+    "please_call_me_now" : "Please call me now💋!",
+    "recommended" : "Recommended",
+    "see_all" : "See all",
+    "search" : "Search",
+    "welcome_dude" : "Welcome Dude!",
+    "order_now" : "Order Now",
+    "register_now" : "Register Now",
+    "dont_have_account" : "Don’t have Account?",
+    "register_as_boss" : " ٌ Register as Boss",
+    "phone_number" : "Phone Number",
+    "enter_your_phone_number" : "enter your phone number",
+    "phone_number_is_required" : "phone number is required",
+    "sign_up" : "Sign up",
+    "password" : "password",
+    "otp_confirmation" : "OTP Confirmation",
+    "enter_otp" : "Enter OTP Code",
+    "please_enter_otp" : "Please enter OTP to your \n Register mobile",
+    "verify" : "Verify",
+    "finally" : "Finally! Your near me",
+    "password_is_required" : "password is required",
+    "password_is_very_week" : "password is very week",
+    "password_must_contain_small_letters" : "password must contain small Letters",
+    "password_must_contain_numbers" : "password must contain numbers",
+    "password_must_contain_special_characters" : "password must contain special characters",
+    "password_must_contain_big_letters" : "password must contain big Letters",
+     "your_name": "Your Name",
+     "user_name_is_required": "user name is required",
+     "save_and_login": "Save and login",
+     "finally_you_back" : "Finally you Back 😘",
+     "login" : "Login",
+     "forget_password" : "Forget password?",
+     "all" : "All",
+     "items" : "Items",
+     "home" : "Home",
+     "my_cart" : "My Cart",
+     "my_orders" : "My Orders",
+     "account" : "Account",
+     "privacy_and_policy" : "Privacy and Policy",
+          "logout" : "Logout",   
+     "want_to_logout" : "Want to logout?",
+     "cancel" : "cancel",
+     "confirm" : "confirm",
+     "tax" : "Tax",
+     "total" : "Total",
+     "completed" : "Completed",
+     "pending" : "Pending",
+     "order_number" : "Order number #223355",
+     "details" : "Details",
+     "date" : "21 December 2021",
+     "sar" : "SAR",
+     "delivered" : "Delivered",
+     "repeat_order_again" : "Repeat order Again",
+     "under_process" : "Under Process",
+     "cancel_order" : "Cancel order",
+     "personal_information" : "Personal Information",
+     "change" : "Change",
+     "email_is_required" : "email is required",
+     "change_password" : "Change Password",
+     "save" : "Save",
+     "new_password" : "New Password",
+     "old_password" : "Old Password",
+     "confirm_password" : "Confirm Password",
+     "offers" : "Offers",
+     "favorites" : "Favorites",
+     "contact_us_for_more" : "Contact us for more",
+     "language" : "Language",
+     "arabic" : "Arabic",
+     "english" : "English",
+     "chose_your_language" : "Chose your language",
+     "enter_a_valid_email" :"Enter a valid email",
+     "under-process" : "Under Process",
+     "your_phone" : "Yor Phone",
+     "enter_your_new_password" : "Enter Your New Password"
+
+
+
+
+
+
+     
+
+     
+     
+
+
+
+
+  }

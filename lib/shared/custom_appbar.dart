@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallpapper/shared/textItem.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -32,8 +33,8 @@ class CustomAppBar extends StatelessWidget {
           TextItem(
             text: title,
             fontWeight: FontWeight.w600,
-            textSize: textSize ?? 18,
-            color: textColor ?? const Color(0xffCB0006),
+            textSize: textSize ?? 18.sp,
+            color: textColor,
             textAlign: TextAlign.center,
           ),
           const Spacer(),

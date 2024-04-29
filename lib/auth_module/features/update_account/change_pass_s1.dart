@@ -1,12 +1,14 @@
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:wallpapper/auth_module/cubit/auth_cubit.dart';
-import 'package:wallpapper/auth_module/features/set_password_screen.dart';
 import 'package:wallpapper/auth_module/features/update_account/set_new_password.dart';
-import 'package:wallpapper/lay_out_module/features/home_screen.dart';
+
 import 'package:wallpapper/shared/textItem.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../shared/button_item.dart';
@@ -33,14 +35,12 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
     ),
   );
 
-  static String id = 'RegisterView';
   final String phone;
-  final List<int> items = const [1, 2, 3, 4];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerWidget(),
+      drawer: DrawerWidget(),
       body: BlocProvider(
         create: (context) => serviceLocator<AuthCubit>(),
         child: BlocConsumer<AuthCubit, AuthState>(
@@ -49,7 +49,7 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
             final cubit = AuthCubit.get(context);
             return SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 25.h),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -57,8 +57,8 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       CustomAppBar(
-                        title: "Change Password",
-                        textSize: 20,
+                        title: "change_password".tr(),
+                        textSize: 20.sp,
                         textColor: const Color(0xff40484E),
                         leading: Builder(
                           builder: (BuildContext context) {
@@ -77,7 +77,7 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 30.h,
+                        height: 166.h,
                       ),
                       Center(
                         child: Pinput(
@@ -87,13 +87,13 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
                           onSubmitted: (data) {
                             // cubit.otp = int.tryParse(cubit.otpController.text);
                           },
-                          pinAnimationType: PinAnimationType.fade,
+                          pinAnimationType: PinAnimationType.rotation,
                           closeKeyboardWhenCompleted: true,
                           animationCurve: Curves.easeInOut,
                           animationDuration: const Duration(seconds: 2),
                           validator: (e) {
                             if (e == null || e.isEmpty) {
-                              return "Enter OTP code";
+                              return "enter_otp".tr();
                             } else {
                               null;
                             }
@@ -106,11 +106,11 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
                       SizedBox(
                         height: 35.h,
                       ),
-                      const TextItem(
+                      TextItem(
                         fontWeight: FontWeight.w700,
                         textSize: 16,
-                        color: Color(0xffCCCCCC),
-                        text: "Please enter OTP to your \n Register mobile",
+                        color: const Color(0xffCCCCCC),
+                        text: "please_enter_otp".tr(),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
@@ -118,9 +118,24 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
                       ),
                       ButtonItem(
                         onPressed: () async {
-                          if (formKey.currentState!.validate()) {}
+                          if (formKey.currentState!.validate()) {
+                            final data = await cubit.checkPinCode(
+                              phone: phone,
+                              otp: cubit.otpController.text,
+                            );
+                            if (data) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SetNewPasswordView(
+                                    phone: phone,
+                                  ),
+                                ),
+                              );
+                            }
+                          }
                         },
-                        text: 'Verify',
+                        text: 'verify'.tr(),
                       ),
                     ],
                   ),

@@ -1,12 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wallpapper/auth_module/cubit/auth_cubit.dart';
+import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 import 'package:wallpapper/shared/button_item.dart';
 import 'package:wallpapper/shared/custom_appbar.dart';
 import 'package:wallpapper/shared/text_field_item.dart';
+import '../../../core/helper/app_regex.dart';
 import '../../../core/utiles/shared.dart';
 import '../../../shared/drawer.dart';
 import '../../../shared/textItem.dart';
@@ -25,16 +29,14 @@ class PersonalInformationScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => serviceLocator<AuthCubit>(),
       child: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           final cubit = AuthCubit.get(context);
           return Scaffold(
-            drawer: const DrawerWidget(),
+            drawer: DrawerWidget(),
             body: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 5.r),
+                padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 5.h),
                 child: Form(
                   key: formKey,
                   child: SingleChildScrollView(
@@ -45,14 +47,17 @@ class PersonalInformationScreen extends StatelessWidget {
                           height: 15.h,
                         ),
                         CustomAppBar(
-                          title: "Personal Information",
+                          title: "personal_information".tr(),
                           textSize: 20,
-                          textColor: const Color(0xff40484E),
                           leading: Builder(
                             builder: (BuildContext context) {
                               return IconButton(
                                 icon: SvgPicture.asset(
                                   "assets/images/Button Menu.svg",
+                                  color: context.read<GeneralCubit>().islight ==
+                                          true
+                                      ? AppColorLight.textMainColor
+                                      : Colors.white,
                                 ),
                                 onPressed: () {
                                   Scaffold.of(context).openDrawer();
@@ -69,7 +74,7 @@ class PersonalInformationScreen extends StatelessWidget {
                         ),
                         Container(
                           width: 75.w,
-                          height: 90.h,
+                          height: 75.h,
                           decoration: BoxDecoration(
                               color: const Color(0xffCB0006),
                               borderRadius: BorderRadius.circular(15)),
@@ -77,78 +82,106 @@ class PersonalInformationScreen extends StatelessWidget {
                         SizedBox(
                           height: 15.h,
                         ),
-                        const TextItem(
-                          text: "Change ",
-                          color: Color(0xff40484E),
+                        TextItem(
+                          text: "change".tr(),
                           fontWeight: FontWeight.w600,
                           textSize: 18,
                         ),
-                        TextFieldItem(
-                          controller: cubit.setNameController,
-                            hintText: "${CacheHelper.loadData(key: "name")}",
-                          validate: (data) {
-                            if (data == null || data.isEmpty) {
-                              return "user name is required";
-                            } else {
-                              return null;
-                            }
-                          },
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: TextFieldItem(
+                            lableColor:  context
+                                .read<GeneralCubit>()
+                                .islight == true
+                                ?AppColorLight.textHintColor
+                                : Colors.white,
+                            controller: cubit.setNameController,
+                            validate: (data) {
+                              if (data == null || data.isEmpty) {
+                                return "user_name_is_required".tr();
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                         ),
-                        TextFieldItem(
-                          controller: cubit.setEmailController,
-                          hintText: 'Email',
-                          validate: (data) {
-                            if (data == null || data.isEmpty) {
-                              return "email is required";
-                            } else {
-                              return null;
-                            }
-                          },
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: TextFieldItem(
+                            lableColor:  context
+                                .read<GeneralCubit>()
+                                .islight == true
+                                ?AppColorLight.textHintColor
+                                : Colors.white,
+                            controller: cubit.setEmailController,
+                            hintText: 'Email',
+                            validate: (data) {
+                              if (data == null || data.isEmpty) {
+                                return "email_is_required".tr();
+                              } else if (!AppRegex.isEmailValid(data)) {
+                                return "enter_a_valid_email".tr();
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                         ),
-                        TextFieldItem(
-                          controller: cubit.phoneController,
-                          hintText: "${CacheHelper.loadData(key: "phoen")}",
-                          validate: (data) {
-                            if (data == null || data.isEmpty) {
-                              return "enter your phone number";
-                            } else {
-                              return null;
-                            }
-                          },
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: TextFieldItem(
+                            lableColor:  context
+                                .read<GeneralCubit>()
+                                .islight == true
+                                ?AppColorLight.textHintColor
+                                : Colors.white,
+                            controller: cubit.phoneController,
+                            hintText: "${CacheHelper.loadData(key: "phoen")}",
+                            validate: (data) {
+                              if (data == null || data.isEmpty) {
+                                return "enter_your_phone_number".tr();
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                         ),
                         SizedBox(
                           height: 55.h,
                         ),
-                        ButtonItem(
-                          onPressed: () async {
-                            if (formKey.currentState!.validate()) {
-                              await cubit.sendOtp(
-                                  phone: cubit.phoneController.text,
-                                  context: context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ChangePasswordStepOneScreen(
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: ButtonItem(
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                await cubit.sendOtp(
                                     phone: cubit.phoneController.text,
+                                    context: context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChangePasswordStepOneScreen(
+                                      phone: cubit.phoneController.text,
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
-                          },
-                          text: "Change Password",
-                          buttonColor: const Color(0xff00CB6D),
+                                );
+                              }
+                            },
+                            text: "change_password".tr(),
+                            buttonColor: const Color(0xff00CB6D),
+                          ),
                         ),
                         SizedBox(
                           height: 15.h,
                         ),
-                        ButtonItem(
-                          onPressed: () {
-                            print(cubit.getUserDataModel?.data?.name);
-
-                            if (formKey.currentState!.validate()) {}
-                          },
-                          text: "Save",
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: ButtonItem(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {}
+                            },
+                            text: "save".tr(),
+                          ),
                         ),
                       ],
                     ),

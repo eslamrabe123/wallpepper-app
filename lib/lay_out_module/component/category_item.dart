@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wallpapper/lay_out_module/features/oder_details.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 
 import '../../shared/textItem.dart';
 import '../cubit/lay_out_cubit.dart';
@@ -17,9 +17,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-
-      },
+      onTap: () {},
       child: BlocConsumer<LayOutCubit, LayOutState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -27,8 +25,8 @@ class CategoryItem extends StatelessWidget {
           return Column(
             children: [
               Container(
-                width: 70.w,
-                height: 80.h,
+                width: 56.w,
+                height: 56.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   // color: Colors.amber,
@@ -43,11 +41,17 @@ class CategoryItem extends StatelessWidget {
               SizedBox(
                 height: 13.h,
               ),
-              TextItem(
-                text: cubit.categoryModel?.data[index].name ?? "error",
-                color: const Color(0xff40484E),
-                textSize: 14,
-                fontWeight: FontWeight.w500,
+              SizedBox(
+                width: 56.w,
+                child: Center(
+                  child: TextItem(
+                    text: cubit.categoryModel?.data[index].name ?? "",
+                    textSize: 14,
+                    overflow: TextOverflow.ellipsis,
+                    maxLine: 1,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ],
           );

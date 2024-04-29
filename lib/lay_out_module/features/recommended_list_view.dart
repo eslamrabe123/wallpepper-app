@@ -1,14 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 import 'package:wallpapper/shared/textItem.dart';
-import '../../core/helper/my_loading.dart';
 import '../../shared/custom_appbar.dart';
 import '../../shared/text_field_item.dart';
 import '../cubit/lay_out_cubit.dart';
 import '../component/recommended_item.dart';
+import 'list-view.dart';
 
 class RecommendedListView extends StatelessWidget {
   const RecommendedListView({super.key});
@@ -23,10 +25,14 @@ class RecommendedListView extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           final cubit = LayOutCubit.get(context);
+          String items = "items".tr();
 
           return Scaffold(
             body: state is RecommendedStateLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    color: AppColorLight.primaryColor,
+                  ))
                 : SafeArea(
                     child: CustomScrollView(
                       slivers: [
@@ -34,25 +40,37 @@ class RecommendedListView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              CustomAppBar(
-                                title: "",
-                                leading: IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(Icons.arrow_back_ios)),
-                                action: TextButton(
-                                  onPressed: () {},
-                                  child: SvgPicture.asset(
-                                      "assets/images/Cart.svg"),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16.r,
+                                  vertical: 8.0.r,
                                 ),
-                                padding: 0.0,
+                                child: CustomAppBar(
+                                  title: "",
+                                  leading: IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.arrow_back_ios)),
+                                  action: TextButton(
+                                    onPressed: () {
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             const RecListViewScreen()));
+                                    },
+                                    child: SvgPicture.asset(
+                                        "assets/images/Cart.svg"),
+                                  ),
+                                  padding: 0.0,
+                                ),
                               ),
                               Padding(
                                 padding:
                                     EdgeInsets.symmetric(horizontal: 18.0.r),
                                 child: TextFieldItem(
-                                  hintText: "Search",
+                                  hintText: "search".tr(),
                                   suffixIcon: IconButton(
                                     onPressed: () {},
                                     icon: SvgPicture.asset(
@@ -79,9 +97,9 @@ class RecommendedListView extends StatelessWidget {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              const TextItem(
-                                text: "All",
-                                color: Color(0xffFC4747),
+                              TextItem(
+                                text: "all".tr(),
+                                color: AppColorLight.allColor,
                                 textSize: 30,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -90,8 +108,8 @@ class RecommendedListView extends StatelessWidget {
                               ),
                               TextItem(
                                 text:
-                                    "(${cubit.recommendedModel?.data.length} items)",
-                                color: const Color(0xff888888),
+                                    "( ${cubit.recommendedModel?.data.length} $items )",
+                                color: AppColorLight.itemsColor,
                                 textSize: 14,
                               ),
                               const Spacer(),

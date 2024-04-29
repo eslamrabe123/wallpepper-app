@@ -1,8 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallpapper/order_module/features/order_number_screen.dart';
 import 'package:wallpapper/shared/button_item.dart';
-
-import '../../core/themes/color_themes.dart';
+import '../../core/general_cubit/cubit/general_cubit.dart';
+import '../../core/themes/app_colors/app_colors_dark.dart';
+import '../../core/themes/app_colors/app_colors_light.dart';
 import '../../shared/textItem.dart';
 
 class PendingOrdersComponent extends StatelessWidget {
@@ -14,121 +19,152 @@ class PendingOrdersComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 12.r),
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xffEBEFF3),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            width: double.infinity,
-            height: 240.h,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 10.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  child: Row(
-                    children: [
-                      const TextItem(
-                        text: "Order number #223355",
-                        textSize: 14,
-                        color: Color(0xff40484E),
-                        fontWeight: FontWeight.w600,
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {},
-                        child: const TextItem(
-                          text: "Details",
-                          textSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff959FA8),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  child: const TextItem(
-                    text: "21 December 2021",
-                    textSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff959FA8),
-                  ),
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  child: Row(
-                    children: [
-                      const TextItem(
-                        text: "SAR ",
-                        textSize: 14,
-                        color: Color(0xff959FA8),
-                        fontWeight: FontWeight.w400,
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      const TextItem(
-                        text: "220 ",
-                        textSize: 14,
-                        color: AppColors.textColorRed,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 5.0.r,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const TextItem(
-                            text: "Under Process",
-                            color: Color(0xff737C00),
-                            fontWeight: FontWeight.w600,
-                            textSize: 12,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 50.w,
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: ButtonItem(
-                          borderRadius: 10,
-                          height: 35,
-                          onPressed: () {},
-                          text: "Cancel order",
-                          textSize: 12.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+        return BuildPedingOrder();
       },
       itemCount: 1,
+    );
+  }
+}
+
+class BuildPedingOrder extends StatelessWidget {
+  const BuildPedingOrder({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 0,
+        left: 25.0.r,
+        right: 25.0.r,
+        bottom: 20.r,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.read<GeneralCubit>().islight == true
+              ? const Color(0xffEBEFF3)
+              : AppColorDark.recommendedItemColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        width: double.infinity,
+        // height: 200.h,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+              child: Row(
+                children: [
+                  TextItem(
+                    text: "order_number".tr(),
+                    textSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => const OrderNumberView(
+                                  text: "Cancelled ",
+                                  textColor: AppColorLight.primaryColor,
+                                )),
+                      );
+                    },
+                    child: TextItem(
+                      text: "details".tr(),
+                      textSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: context.read<GeneralCubit>().islight == true
+                          ? AppColorLight.textHintColor
+                          : Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+              child: TextItem(
+                text: "date".tr(),
+                textSize: 14,
+                // fontWeight: FontWeight.w400,
+                color: context.read<GeneralCubit>().islight == true
+                    ? AppColorLight.textHintColor
+                    : Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+              child: Row(
+                children: [
+                  TextItem(
+                    text: "sar".tr(),
+                    textSize: 14,
+                    color: context.read<GeneralCubit>().islight == true
+                        ? AppColorLight.textHintColor
+                        : Colors.white,
+                    // fontWeight: FontWeight.w400,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  const TextItem(
+                    text: "220 ",
+                    textSize: 14,
+                    color: AppColorLight.textRedColor,
+                    // fontWeight: FontWeight.normal,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 25.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 5.0.r,
+              ),
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: TextItem(
+                      text: "under-process".tr(),
+                      color: AppColorLight.underProcessButtonColor,
+                      // fontWeight: FontWeight.w600,
+                      textSize: 12,
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: EdgeInsets.only(right: 15.r),
+                    child: ButtonItem(
+                      borderRadius: 10,
+                      height: 35,
+                      buttonWidth: 150,
+                      onPressed: () {},
+                      text: "cancel_order".tr(),
+                      textSize: 12.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

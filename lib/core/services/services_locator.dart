@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:wallpapper/account_module/cubit/account_cubit.dart';
 import 'package:wallpapper/auth_module/domain/repository/aut_repository.dart';
+import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/lay_out_module/cubit/lay_out_cubit.dart';
 import 'package:wallpapper/lay_out_module/domain/repository/repository.dart';
 import 'package:wallpapper/order_module/cubit/order_cubit.dart';
@@ -19,6 +20,9 @@ class ServiceLocator {
     /// Auth CUBIT
     serviceLocator.registerFactory(() => AuthCubit(serviceLocator()));
 
+    /// GENERAL CUBIT
+    serviceLocator.registerFactory(() => GeneralCubit());
+
     /// LAYOUT CUBIT
     serviceLocator.registerFactory(() => LayOutCubit(serviceLocator()));
 
@@ -28,16 +32,20 @@ class ServiceLocator {
     serviceLocator.registerFactory(() => AccountCubit(serviceLocator()));
 
     /// AUTH REPOSITORY
-    serviceLocator.registerLazySingleton(() => AuthRepository(serviceLocator<DioService>()));
+    serviceLocator.registerLazySingleton(
+        () => AuthRepository(serviceLocator<DioService>()));
+
     /// LayOut REPOSITORY
-    serviceLocator.registerLazySingleton(() => LayOutRepository(serviceLocator<DioService>()));
+    serviceLocator.registerLazySingleton(
+        () => LayOutRepository(serviceLocator<DioService>()));
+
     /// ORDER REPOSITORY
-    serviceLocator.registerLazySingleton(() => OrderRepository(serviceLocator<DioService>()));
+    serviceLocator.registerLazySingleton(
+        () => OrderRepository(serviceLocator<DioService>()));
+
     /// ORDER REPOSITORY
-    serviceLocator.registerLazySingleton(() => AccountRepository(serviceLocator<DioService>()));
-
-
-
+    serviceLocator.registerLazySingleton(
+        () => AccountRepository(serviceLocator<DioService>()));
 
     // serviceLocator.registerLazySingleton<AuthRepository>(
     //     () => AuthRepository(serviceLocator()));

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wallpapper/auth_module/features/login_screen.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
 import 'package:wallpapper/lay_out_module/features/home_screen.dart';
 import '../../../../core/utiles/utils.dart';
@@ -50,9 +51,21 @@ class _SplashViewState extends State<SplashView> {
                     curve: Curves.linear,
                     animationFinished: (finished) async {
                       if (Utils.token.isNotEmpty) {
-                        Navigator.pushNamed(context, HomeScreen.id);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
+                          (route) => false,
+                        );
                         print("TOKEN IS : ${Utils.token}");
                       } else {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OnBoardView(),
+                          ),
+                          (route) => false,
+                        );
                         Navigator.pushNamed(context, OnBoardView.id);
                         print("TOKEN IS : ${Utils.token}");
                       }

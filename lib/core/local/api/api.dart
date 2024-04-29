@@ -6,13 +6,13 @@ import '../../helper/alerts.dart';
 import '../../utiles/utils.dart';
 import 'dart:async';
 
-
+String baseUrl = "https://wallpepper.neop.co/api/v1/";
 
 class DioService {
   Dio _mydio = Dio();
 
   DioService(
-      {String baseUrl = "",
+      {String baseUrl = "https://wallpepper.neop.co/api/v1/",
       BaseOptions? options}) {
     _mydio = Dio(BaseOptions(
         headers: {
@@ -52,6 +52,7 @@ class DioService {
     try {
       if (loading) {
         MyLoading.show();
+
       }
       final response = await _mydio.post(url,
           queryParameters: query,
@@ -146,15 +147,15 @@ class DioService {
 
     if (DioExceptionType.receiveTimeout == e.type ||
         DioExceptionType.connectionTimeout == e.type) {
-      Alerts.snack(text: "Connetion timeout", state: SnackState.failed);
+      // Alerts.snack(text: "Connetion timeout", state: SnackState.failed);
       log('case 1');
       log('Server is not reachable. Please verify your internet connection and try again');
     } else if (DioExceptionType.badResponse == e.type) {
       log('case 2');
       log('Server reachable. Error in resposne');
-      Alerts.snack(
-          text: e.response?.data["message"] ?? "لا يمكن الوصول للسيرفير",
-          state: SnackState.failed);
+      // Alerts.snack(
+      //     text: e.response?.data["message"] ?? "لا يمكن الوصول للسيرفير",
+      //     state: SnackState.failed);
 
       log("hello im errroe");
       if (e.response?.data["message"]?.contains("Unauthenticated") ?? false) {
@@ -181,7 +182,7 @@ class DioService {
       if (e.message!.contains('SocketException')) {
         log('Network error');
         log('case 3');
-        Alerts.snack(text: "No Network", state: SnackState.failed);
+        // Alerts.snack(text: "No Network", state: SnackState.failed);
       }
     } else {
       // show snak server error
@@ -197,8 +198,7 @@ class DioService {
       return ApiResponse(isError: false, response: response);
     } else {
       // Alerts.snack(text: response.data["message"], state: SnackState.failed);
-       return
-        ApiResponse(isError: true, response: response);
+      return ApiResponse(isError: true, response: response);
     }
   }
 }
@@ -213,11 +213,11 @@ class ApiResponse {
 ApiResponse getError({required DioException e}) {
   MyLoading.dismis();
   if (DioExceptionType.connectionTimeout == e.type) {
-    Alerts.snack(text: "Connection timeout", state: SnackState.failed);
+    // Alerts.snack(text: "Connection timeout", state: SnackState.failed);
   } else if (DioExceptionType.badResponse == e.type) {
-    Alerts.snack(text: "Bad Response", state: SnackState.failed);
+    // Alerts.snack(text: "Bad Response", state: SnackState.failed);
   } else if (DioExceptionType.badCertificate == e.type) {
-    Alerts.snack(text: "Bad Certificate", state: SnackState.failed);
+    // Alerts.snack(text: "Bad Certificate", state: SnackState.failed);
   }
   return ApiResponse(isError: true, response: e.response);
 }

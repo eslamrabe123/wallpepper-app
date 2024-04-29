@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:wallpapper/account_module/cubit/account_cubit.dart';
 import 'package:wallpapper/auth_module/cubit/auth_cubit.dart';
-import 'package:wallpapper/auth_module/features/login_screen.dart';
+import 'package:wallpapper/auth_module/cubit/auth_state.dart';
 import '../../../core/helper/app_regex.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../core/themes/app_colors/app_colors_light.dart';
 import '../../../shared/button_item.dart';
 import '../../../shared/custom_appbar.dart';
 import '../../../shared/drawer.dart';
-import '../../../shared/textItem.dart';
 import '../../../shared/text_field_item.dart';
 
+// ignore: must_be_immutable
 class SetNewPasswordView extends StatelessWidget {
   SetNewPasswordView({super.key, required this.phone});
+  TextEditingController repeatPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
 
   static String id = 'SetNewPasswordView';
   final String phone;
@@ -24,16 +26,17 @@ class SetNewPasswordView extends StatelessWidget {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      drawer: const DrawerWidget(),
+      drawer: DrawerWidget(),
       body: BlocProvider(
-        create: (context) => serviceLocator<AccountCubit>(),
-        child: BlocConsumer<AccountCubit, AccountState>(
+        create: (context) => serviceLocator<AuthCubit>(),
+        child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {},
           builder: (context, state) {
-            final cubit = AccountCubit.get(context);
+            final cubit = AuthCubit.get(context);
             return SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 25.h),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -42,8 +45,7 @@ class SetNewPasswordView extends StatelessWidget {
                     children: [
                       CustomAppBar(
                         title: "Change Password",
-                        textSize: 20,
-                        textColor: const Color(0xff40484E),
+                        textSize: 20.sp,
                         leading: Builder(
                           builder: (BuildContext context) {
                             return IconButton(
@@ -58,17 +60,28 @@ class SetNewPasswordView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 100.h,
-                      ),
-                      SizedBox(
-                        height: 35.h,
+                        height: 65.h,
                       ),
                       TextFieldItem(
-                        keyBordType: TextInputType.number,
+                        keyBordType: TextInputType.visiblePassword,
                         onChange: (newValue) {},
-                        // controller: cubit.setPasswordController,
+                        controller: newPasswordController,
                         hintText: "New password",
-                        isPassword: false,
+                        suffixIcon: IconButton(
+                          color: cubit.isPassWordVisible == true
+                              ? AppColorLight.primaryColor
+                              : const Color(0xff959FA8),
+                          onPressed: () {
+                            cubit.changePasswordVisibility();
+                          },
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            color: cubit.isPassWordVisible == false
+                                ? AppColorLight.primaryColor
+                                : const Color(0xff959FA8),
+                          ),
+                        ),
+                        isPassword: cubit.isPassWordVisible,
                         validate: (data) {
                           if (data == null || data.isEmpty) {
                             return "password is required";
@@ -90,14 +103,28 @@ class SetNewPasswordView extends StatelessWidget {
                       TextFieldItem(
                         keyBordType: TextInputType.number,
                         onChange: (newValue) {},
-                        // controller: cubit.setNameController,
+                        controller: repeatPasswordController,
                         hintText: "Repeat new Password",
-                        isPassword: false,
+                        suffixIcon: IconButton(
+                          color: cubit.isRepeatPassWordVisible == true
+                              ? AppColorLight.primaryColor
+                              : const Color(0xff959FA8),
+                          onPressed: () {
+                            cubit.changeRepeatPasswordVisibility();
+                          },
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            color: cubit.isRepeatPassWordVisible == false
+                                ? AppColorLight.primaryColor
+                                : const Color(0xff959FA8),
+                          ),
+                        ),
+                        isPassword: cubit.isRepeatPassWordVisible,
                         validate: (data) {
                           if (data == null || data.isEmpty) {
-                            return "user name is required";
-                          } else {
-                            return null;
+                            return "password is required";
+                          } else if (data != newPasswordController.text) {
+                            return "password not match";
                           }
                         },
                       ),

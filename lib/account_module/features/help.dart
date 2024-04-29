@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wallpapper/account_module/cubit/account_cubit.dart';
+import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
 import 'package:wallpapper/shared/button_item.dart';
 import 'package:wallpapper/shared/custom_appbar.dart';
@@ -35,12 +36,17 @@ class HelpView extends StatelessWidget {
                       CustomAppBar(
                         title: 'Privacy Policy',
                         textSize: 20,
-                        textColor: const Color(0xff40484E),
                         leading: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: SvgPicture.asset("assets/images/Back.svg")),
+                            icon: SvgPicture.asset(
+                              "assets/images/Back.svg",
+                              color:
+                                  context.read<GeneralCubit>().islight == true
+                                      ? null
+                                      : Colors.white,
+                            )),
                         action: SizedBox(
                           width: 35.w,
                         ),
@@ -52,7 +58,6 @@ class HelpView extends StatelessWidget {
                         text: "How can we help you?",
                         fontWeight: FontWeight.w600,
                         textSize: 20,
-                        color: Color(0xff40484E),
                       ),
                       TextFieldItem(
                         validate: (validate) {},
@@ -79,12 +84,26 @@ class HelpView extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {},
-                            icon: SvgPicture.asset("assets/images/instgram.svg"),
+                            icon: SvgPicture.asset(
+                              "assets/images/instgram.svg",
+                              color:
+                                  context.read<GeneralCubit>().islight == true
+                                      ? null
+                                      : Colors.white,
+                            ),
                           ),
-                          SizedBox(width: 15.w,),
+                          SizedBox(
+                            width: 15.w,
+                          ),
                           IconButton(
                             onPressed: () {},
-                            icon: SvgPicture.asset("assets/images/whatsapp_icon.svg"),
+                            icon: SvgPicture.asset(
+                              "assets/images/whatsapp_icon.svg",
+                              color:
+                                  context.read<GeneralCubit>().islight == true
+                                      ? null
+                                      : Colors.white,
+                            ),
                           ),
                         ],
                       )

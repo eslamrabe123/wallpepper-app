@@ -1,7 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 
 import '../../account_module/features/help.dart';
+import '../../auth_module/features/forgot_password.dart';
 import '../../auth_module/features/update_account/personal_information.dart';
 import '../../account_module/features/privacy_policy.dart';
 import '../../auth_module/features/login_screen.dart';
@@ -15,7 +15,6 @@ import '../../order_module/features/my_order_screen.dart';
 import '../../order_module/features/orders_lay_out.dart';
 
 Map<String, Widget Function(BuildContext)> routs = {
-
   OnBoardView.id: (context) => const OnBoardView(),
   RegisterView.id: (context) => const RegisterView(),
   LoginView.id: (context) => LoginView(),
@@ -27,6 +26,6 @@ Map<String, Widget Function(BuildContext)> routs = {
   PersonalInformationScreen.id: (context) => const PersonalInformationScreen(),
   OffersScreen.id: (context) => const OffersScreen(),
   OrderLayOut.id: (context) => const OrderLayOut(),
-  MyOrderView.id: (context) => const MyOrderView(),
-
+  MyCartScreen.id: (context) => const MyCartScreen(),
+  ForgotPasswordView.id: (context) => ForgotPasswordView(),
 };

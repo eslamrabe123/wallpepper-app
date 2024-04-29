@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_dark.dart';
+import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 import 'package:wallpapper/shared/textItem.dart';
 
 import '../cubit/lay_out_cubit.dart';
 import '../features/oder_details.dart';
 
+// ignore: must_be_immutable
 class RecommendedItem extends StatefulWidget {
-   RecommendedItem({
+  RecommendedItem({
     super.key,
     required this.index,
     required this.nweIndex,
@@ -34,17 +38,39 @@ class _RecommendedItemState extends State<RecommendedItem> {
         return GestureDetector(
           onTap: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => OrderDetails(index: widget.index)));
+              context,
+              MaterialPageRoute(
+                builder: (context) => OrderDetails(
+                  index: widget.index,
+                ),
+              ),
+            );
           },
           child: FadeIn(
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 100),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 8.0.r),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(.1),
+                  boxShadow: [
+                    context.read<GeneralCubit>().islight == true
+                        ? const BoxShadow(
+                            color: Color(0x15748694),
+                            spreadRadius: 0,
+                            blurRadius: 58,
+                            offset: Offset(0, 3),
+                          )
+                        : const BoxShadow(
+                            color: Color.fromARGB(20, 180, 186, 190),
+                            spreadRadius: 0,
+                            blurRadius: 15,
+                            offset: Offset(0, 3),
+                          ),
+                  ],
+                  color: context.read<GeneralCubit>().islight == true
+                      ? Colors.white
+                      : AppColorDark.recommendedItemColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: const EdgeInsets.all(8),
@@ -56,15 +82,15 @@ class _RecommendedItemState extends State<RecommendedItem> {
                     Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 8.0.r),
+                          padding: EdgeInsets.only(right: 18.0.w),
                           child: Container(
-                            width: 120,
-                            height: 120,
+                            width: 100.w,
+                            height: 100.h,
                             decoration: BoxDecoration(
                                 // color: Colors.amber,
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   image: NetworkImage(
                                     cubit.recommendedModel?.data[widget.index]
                                             .avatar ??
@@ -82,17 +108,41 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                 text: cubit.recommendedModel?.data[widget.index]
                                         .name ??
                                     "",
-                                color: const Color(0xff40484E),
-                                textSize: 18,
+                                textSize: 18.sp,
                                 overflow: TextOverflow.ellipsis,
                                 maxLine: 1,
                               ),
                             ),
+                            SizedBox(height: 16.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SvgPicture.asset(
+                                  "assets/images/ionstar.svg",
+                                  color: const Color(0xffFFD600),
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                TextItem(
+                                  text:
+                                      "${cubit.recommendedModel?.data[widget.index].rating.toString()}",
+                                  color: context.read<GeneralCubit>().islight ==
+                                          false
+                                      ? Colors.white
+                                      : AppColorLight.textHintColor,
+                                  fontWeight: FontWeight.w600,
+                                  textSize: 14.sp,
+                                ),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                SvgPicture.asset(
                                   "assets/images/alarm_icon.svg",
+                                  color: context.read<GeneralCubit>().islight ==
+                                          false
+                                      ? Colors.white
+                                      : null,
                                 ),
                                 SizedBox(
                                   width: 5.w,
@@ -100,19 +150,26 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                 TextItem(
                                   text:
                                       "${cubit.recommendedModel?.data[widget.index].time.toString()} min",
-                                  color: const Color(0xff959FA8),
+                                  color: context.read<GeneralCubit>().islight ==
+                                          false
+                                      ? Colors.white
+                                      : AppColorLight.textHintColor,
                                   fontWeight: FontWeight.w600,
-                                  textSize: 14,
+                                  textSize: 14.sp,
                                 )
                               ],
                             ),
+                            SizedBox(height: 10.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                const TextItem(
+                                TextItem(
                                   text: "SAR ",
-                                  color: Color(0xff777777),
-                                  textSize: 10,
+                                  color: context.read<GeneralCubit>().islight ==
+                                          true
+                                      ? AppColorLight.sarColor
+                                      : Colors.white,
+                                  textSize: 10.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
                                 SizedBox(
@@ -121,9 +178,9 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                 TextItem(
                                   text:
                                       "${cubit.recommendedModel?.data[widget.index].price} ",
-                                  color: const Color(0xffCB0006),
-                                  fontWeight: FontWeight.w700,
-                                  textSize: 18,
+                                  color: AppColorLight.primaryColor,
+                                  fontWeight: FontWeight.normal,
+                                  textSize: 18.sp,
                                 )
                               ],
                             ),
@@ -139,23 +196,22 @@ class _RecommendedItemState extends State<RecommendedItem> {
                               GestureDetector(
                                 child: SvgPicture.asset(
                                   "assets/images/ionheart-circle.svg",
-
-                                  color:cubit.recommendedModel
+                                  color: cubit.recommendedModel
                                               ?.data[widget.index].isFav ==
                                           true
-                                      ? const Color(0xffFC4747)
-                                      : null,
+                                      ? AppColorLight.favoriteIconColor
+                                      : context.read<GeneralCubit>().islight ==
+                                              true
+                                          ? null
+                                          : Colors.white,
                                 ),
                                 onTap: () async {
                                   cubit.changeFavIconColor(index: widget.index);
-
 
                                   await cubit.toggleFavorite(
                                     dishId: cubit.recommendedModel
                                         ?.data[widget.index].id,
                                   );
-                                  print(
-                                      "Fav is : ${widget.isLike}");
                                 },
                               ),
                             ],

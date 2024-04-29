@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wallpapper/core/local/api/api.dart';
 import 'package:wallpapper/order_module/domain/model/completed_orders_model.dart';
+import '../../../core/themes/app_colors/app_colors_light.dart';
+import '../../../core/themes/color_themes.dart';
 import '../model/order_config_model.dart';
 import '../model/pendingOrders-model.dart';
 
@@ -13,14 +16,20 @@ class OrderRepository {
 
   pendingOrders() async {
     final response =
-    await dioService.getData(url: "pending-order", loading: true);
+        await dioService.getData(url: "pending-order", loading: false);
     if (response.isError == false) {
-      pendingOrdersModel =
-          PendingOrdersModel.fromJson(response.response?.data);
-      return pendingOrders;
+      pendingOrdersModel = PendingOrdersModel.fromJson(response.response?.data);
+      return pendingOrdersModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
-
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColorLight.primaryColor,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 
@@ -28,14 +37,21 @@ class OrderRepository {
 
   completedOrders() async {
     final response =
-        await dioService.getData(url: "completed-order", loading: true);
+        await dioService.getData(url: "completed-order", loading: false);
     if (response.isError == false) {
       completedOrdersModel =
           CompletedOrdersModel.fromJson(response.response?.data);
       return completedOrdersModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
-
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"] ?? " completedOrders error",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColorLight.primaryColor,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 
@@ -43,12 +59,20 @@ class OrderRepository {
 
   getOrderConfig() async {
     final response =
-        await dioService.getData(url: "order-config", loading: true);
+        await dioService.getData(url: "order-config", loading: false);
     if (response.isError == false) {
       orderConfigModel = OrderConfigModel.fromjson(response.response?.data);
       return orderConfigModel;
     } else {
-      Fluttertoast.showToast(msg: response.response?.data["message"]);
+      Fluttertoast.showToast(
+        msg: response.response?.data["message"] ?? 'Something went wrong',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColorLight.primaryColor,
+        textColor: Colors.white,
+        fontSize: 12.0,
+      );
     }
   }
 }

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/shared/textItem.dart';
 
+import '../core/themes/app_colors/app_colors_light.dart';
+
+// ignore: must_be_immutable
 class TextFieldItem extends StatelessWidget {
   TextFieldItem({
     super.key,
     this.upFieldText,
-     this.isPassword,
+    this.isPassword,
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
@@ -17,8 +23,11 @@ class TextFieldItem extends StatelessWidget {
     this.controller,
     this.onChange,
     required this.validate,
+    this.hintColor,
+    this.lableColor,
+    this.enableBorderSide,
+    this.fillColor,
   });
-
   TextEditingController? controller;
   final String? hintText;
   final String? upFieldText;
@@ -27,14 +36,17 @@ class TextFieldItem extends StatelessWidget {
   bool? isPassword;
   final TextInputType? keyBordType;
   Function(String)? onChange;
-
   final Function(String?) validate;
   final Function(String)? onSubmitted;
   final double? height;
   final int? maxLine;
-  final BorderSide borderSide = BorderSide.none;
-  double radius = 15;
+  final BorderSide? enableBorderSide;
+  // = BorderSide.none;
+  double radius = 13;
   Color borderColor = const Color(0xff707070);
+  Color? hintColor = AppColorLight.textHintColor;
+  Color? lableColor = AppColorLight.textHintColor;
+  Color? fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +61,15 @@ class TextFieldItem extends StatelessWidget {
           ),
         ),
         TextFormField(
-          cursorColor: const Color(0xff000000),
+          keyboardType: keyBordType,
+          cursorColor: context.read<GeneralCubit>().islight == true
+              ? const Color(0xff000000)
+              : Colors.white,
+          style: GoogleFonts.nunito(
+            color: lableColor ?? AppColorLight.textMainColor,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
           onFieldSubmitted: (onSubmitted) {},
           obscureText: isPassword ?? false,
           validator: (data) {
@@ -59,26 +79,27 @@ class TextFieldItem extends StatelessWidget {
           maxLines: maxLine ?? 1,
           controller: controller,
           decoration: InputDecoration(
-            fillColor: const Color(0xffEBEFF3),
+            fillColor: fillColor,
             filled: true,
 
-            contentPadding: const EdgeInsets.all(16),
+            contentPadding: EdgeInsets.all(22.r),
 
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
-              borderSide: borderSide,
+              borderSide: enableBorderSide ?? BorderSide.none,
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
-              borderSide: borderSide,
+              borderSide: enableBorderSide ?? BorderSide.none,
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
-              borderSide: borderSide,
+              borderSide: enableBorderSide ?? BorderSide.none,
             ),
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius),
-                borderSide: borderSide),
+              borderRadius: BorderRadius.circular(radius),
+              borderSide: enableBorderSide ?? BorderSide.none,
+            ),
 
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
@@ -86,18 +107,19 @@ class TextFieldItem extends StatelessWidget {
             hintText: hintText,
 
             hintStyle: GoogleFonts.nunito(
-              color: const Color(0xff959FA8),
+              color: hintColor ?? AppColorLight.textHintColor,
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              height: 0.09,
+              height: 0.09.h,
             ),
-            hintTextDirection: TextDirection.ltr,
+
+            // hintTextDirection: TextDirection.rtl,
 
             //prefixIcon: icon,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(
-                33,
+                13,
               ),
             ),
           ),

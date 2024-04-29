@@ -9,6 +9,12 @@ class MinasState extends OrderState {}
 
 class AddState extends OrderState {}
 
+class RemoveState extends OrderState {}
+
+class ShowToastState extends OrderState {}
+
+class ChangeDiscState extends OrderState {}
+
 class OrderConfigStateLoading extends OrderState {}
 
 class OrderConfigStateSuccess extends OrderState {}

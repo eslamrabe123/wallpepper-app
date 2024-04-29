@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpapper/lay_out_module/domain/model/category_model.dart';
@@ -11,6 +12,7 @@ part 'lay_out_state.dart';
 
 class LayOutCubit extends Cubit<LayOutState> {
   LayOutRepository layOutRepository;
+  bool isCliced = false;
 
   LayOutCubit(
     this.layOutRepository,
@@ -49,7 +51,6 @@ class LayOutCubit extends Cubit<LayOutState> {
   changeFavIconColor({required int index}) {
     recommendedModel?.data[index].isFav = !recommendedModel!.data[index].isFav;
     emit(FavState());
-    print("Color Changes !");
   }
 
   toggleFavorite({int? dishId}) async {
@@ -78,15 +79,27 @@ class LayOutCubit extends Cubit<LayOutState> {
     }
   }
 
+  printRefresh() {
+    print("refresh at ");
+  }
+
+  int page = 1;
+  List list = [];
+
   RecommendedModel? recommendedModel;
 
   getRecommended() async {
     emit(RecommendedStateLoading());
-    final data = await layOutRepository.getRecommended();
+    final data = await layOutRepository.getRecommended(page);
     if (data != null) {
       emit(RecommendedStateSuccess());
       recommendedModel = data;
-      return recommendedModel;
+      list.add(recommendedModel?.data);
+      page++;
+
+      print("page number is $page");
+
+      return list;
     } else {
       emit(RecommendedStateError());
     }
@@ -134,4 +147,14 @@ class LayOutCubit extends Cubit<LayOutState> {
   }
 
   int? index;
+
+  bool isAr = true;
+
+  changeLang(BuildContext context) {
+    isAr = !isAr;
+    isAr == true
+        ? context.setLocale(const Locale('en', "US"))
+        : context.setLocale(const Locale('ar', "EG"));
+    emit(ChangeLangState());
+  }
 }
