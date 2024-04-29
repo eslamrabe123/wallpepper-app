@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,12 +24,14 @@ class MyOrderView extends StatelessWidget {
         builder: (context, state) {
           final cubit = OrderCubit.get(context);
 
-          return Scaffold(
-            body: SafeArea(
+          return CupertinoPageScaffold(
+            child: SafeArea(
               child: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
-                    child: SizedBox(height: 10.h,),
+                    child: SizedBox(
+                      height: 10.h,
+                    ),
                   ),
                   SliverToBoxAdapter(
                     child: CustomAppBar(
@@ -144,7 +147,8 @@ class MyOrderView extends StatelessWidget {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Padding(
-                                          padding:  EdgeInsets.only(right: 25.0.r),
+                                          padding:
+                                              EdgeInsets.only(right: 25.0.r),
                                           child: GestureDetector(
                                             child: SvgPicture.asset(
                                               "assets/images/iontrash.svg",
@@ -199,7 +203,7 @@ class MyOrderView extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                           const Row(
+                          const Row(
                             children: [
                               TextItem(
                                 text: "Sub Total",
@@ -217,7 +221,7 @@ class MyOrderView extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                           Row(
+                          Row(
                             children: [
                               const TextItem(
                                 text: "Tax",
@@ -235,7 +239,7 @@ class MyOrderView extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                           Row(
+                          Row(
                             children: [
                               const TextItem(
                                 text: "Delivery Fee",
@@ -244,7 +248,8 @@ class MyOrderView extends StatelessWidget {
                               ),
                               const Spacer(),
                               TextItem(
-                                text: "\$  ${cubit.orderConfigModel?.data.deliveryFee ?? ''}",
+                                text:
+                                    "\$  ${cubit.orderConfigModel?.data.deliveryFee ?? ''}",
                                 color: AppColors.textColor,
                                 textSize: 14,
                               ),

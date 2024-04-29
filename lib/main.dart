@@ -6,13 +6,16 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallpapper/core/routs/route.dart';
+import 'auth_module/features/set_password_screen.dart';
 import 'auth_module/features/splash_screen.dart';
 import 'core/services/services_locator.dart';
 import 'core/utiles/shared.dart';
-import 'order_module/features/check_out_screen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+
   Bloc.observer = MyBlocObserver();
 
   ServiceLocator().init();
@@ -49,7 +52,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: SplashView.id,
 
-            // home: CheckOutView(),
+            // home: SetPasswordView(phone: '010005361',),
           );
         });
   }

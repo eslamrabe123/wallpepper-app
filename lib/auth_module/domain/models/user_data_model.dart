@@ -21,6 +21,8 @@ class GetUserDataModel {
       accessToken: json["access_token"],
       tokenType: json["token_type"],
     );
+
+
   }
 
 

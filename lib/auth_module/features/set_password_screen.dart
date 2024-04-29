@@ -22,8 +22,7 @@ class SetPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: setPasswordFormKey.currentState != null
-          ? BlocProvider(
+      body:  BlocProvider(
               create: (context) => serviceLocator<AuthCubit>(),
               child: BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {},
@@ -121,7 +120,7 @@ class SetPasswordView extends StatelessWidget {
                 },
               ),
             )
-          : const SizedBox(),
+
     );
   }
 }

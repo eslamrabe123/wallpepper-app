@@ -15,10 +15,10 @@ class Utils {
   static bool onBoard = true;
   static bool start = true;
   static bool FirstOpen = true;
-  static String name = '';
+  static String name =  CacheHelper.loadData(key: "name")??'' ;
   static String UserId = '';
   static String email = '';
-  static String phone = '';
+  static String phone =  CacheHelper.loadData(key: "phone")??'' ;
   static String FCMToken = '';
   static String UserImage = '';
   static String complaint_phone = '';

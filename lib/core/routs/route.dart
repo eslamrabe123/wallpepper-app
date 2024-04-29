@@ -11,13 +11,14 @@ import '../../auth_module/features/splash_screen.dart';
 import '../../lay_out_module/features/favorite_screen.dart';
 import '../../lay_out_module/features/home_screen.dart';
 import '../../lay_out_module/features/offers_screen.dart';
+import '../../order_module/features/my_order_screen.dart';
+import '../../order_module/features/orders_lay_out.dart';
 
 Map<String, Widget Function(BuildContext)> routs = {
 
   OnBoardView.id: (context) => const OnBoardView(),
   RegisterView.id: (context) => const RegisterView(),
   LoginView.id: (context) => LoginView(),
-
   SplashView.id: (context) => const SplashView(),
   HomeScreen.id: (context) => const HomeScreen(),
   PrivacyAndPolicyView.id: (context) => const PrivacyAndPolicyView(),
@@ -25,5 +26,7 @@ Map<String, Widget Function(BuildContext)> routs = {
   FavoriteScreen.id: (context) => const FavoriteScreen(),
   PersonalInformationScreen.id: (context) => const PersonalInformationScreen(),
   OffersScreen.id: (context) => const OffersScreen(),
+  OrderLayOut.id: (context) => const OrderLayOut(),
+  MyOrderView.id: (context) => const MyOrderView(),
 
 };

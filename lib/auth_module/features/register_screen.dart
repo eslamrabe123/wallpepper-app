@@ -21,6 +21,7 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+    TextEditingController phoneController = TextEditingController();
 
     return Scaffold(
       body: BlocProvider(
@@ -72,7 +73,7 @@ class RegisterView extends StatelessWidget {
                               //     int.tryParse(cubit.phoneController.text);
                             },
                             onChange: (newValue) {},
-                            controller: cubit.phoneController,
+                            controller: phoneController,
                             hintText: "Phone number",
                             isPassword: false,
                             validate: (data) {
@@ -90,14 +91,14 @@ class RegisterView extends StatelessWidget {
                             onPressed: () async {
 
                               if (registerFormKey.currentState!.validate()) {
-                                final data = await cubit.register(context: context);
+                                final data = await cubit.register(context: context, phoneNumber:phoneController.text.trim() );
 
                                 if (data != null) {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => PinCodeView(
-                                        phone: cubit.phoneController.text.trim(),
+                                        phone: phoneController.text.trim(),
                                       ),
                                     ),
                                   );

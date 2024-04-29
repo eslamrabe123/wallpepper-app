@@ -7,13 +7,12 @@ import '../../utiles/utils.dart';
 import 'dart:async';
 
 
-String baseUrl = "https://wallpepper.neop.co/api/v1/";
 
 class DioService {
   Dio _mydio = Dio();
 
   DioService(
-      {String baseUrl = "https://wallpepper.neop.co/api/v1/",
+      {String baseUrl = "",
       BaseOptions? options}) {
     _mydio = Dio(BaseOptions(
         headers: {
@@ -126,7 +125,7 @@ class DioService {
 
     try {
       if (loading == true) {
-        MyLoading.show();
+        MyLoading.show(fullScreen: true);
       }
       final response = await _mydio.get(url, queryParameters: query);
       if (loading) {
@@ -197,7 +196,7 @@ class DioService {
     if (response.data["data"] != null) {
       return ApiResponse(isError: false, response: response);
     } else {
-      Alerts.snack(text: response.data["message"], state: SnackState.failed);
+      // Alerts.snack(text: response.data["message"], state: SnackState.failed);
        return
         ApiResponse(isError: true, response: response);
     }

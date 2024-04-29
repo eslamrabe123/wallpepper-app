@@ -44,111 +44,104 @@ class PinCodeView extends StatelessWidget {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Form(
-                  key: pinCodFormKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(
-                        height: 100.h,
-                      ),
-                      SvgPicture.asset(
-                        "assets/images/pin_code_icon.svg",
-                      ),
-                      SizedBox(
-                        height: 50.h,
-                      ),
-                      // SizedBox(height: 100.h,),
-                      const TextItem(
-                        textAlign: TextAlign.center,
-                        text: "ٌRegister as Boss",
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        textSize: 30,
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      Center(
-                        child: Pinput(
-                          onChanged: (data) {
-                            cubit.otp = int.tryParse(cubit.otpController.text);
-                          },
-                          onSubmitted: (data) {
-                            cubit.otp = int.tryParse(cubit.otpController.text);
-                          },
-                          pinAnimationType: PinAnimationType.fade,
-                          closeKeyboardWhenCompleted: true,
-                          onCompleted: (data) {
-                            print(data);
-                          },
-                          animationCurve: Curves.easeInOut,
-                          animationDuration: const Duration(seconds: 2),
-                          validator: (e) {
-                            if (e == null || e.isEmpty) {
-                              return "Enter OTP code";
-                            } else {
-                              null;
-                            }
-                            return null;
-                          },
-                          defaultPinTheme: PinTheme(
-                            width: 56,
-                            height: 56,
-                            textStyle: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(30, 60, 87, 1),
-                                fontWeight: FontWeight.w600),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      const Color.fromRGBO(234, 239, 243, 1)),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          controller: cubit.otpController,
-                          preFilledWidget: const TextItem(
-                            text: '__',
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 100.h,
+                    ),
+                    SvgPicture.asset(
+                      "assets/images/pin_code_icon.svg",
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    // SizedBox(height: 100.h,),
+                    const TextItem(
+                      textAlign: TextAlign.center,
+                      text: "OTP Confirmation",
+                      color: Color(0xff40484E),
+                      fontWeight: FontWeight.normal,
+                      textSize: 20,
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Center(
+                      child: Pinput(
+                        // onChanged: (data) {
+                        //   print(data);
+                        //   data = int.tryParse(cubit.otpController.text) as String;
+                        // },
+                        // onSubmitted: (data) {
+                        //   cubit.otp = int.tryParse(cubit.otpController.text);
+                        // },
+                        pinAnimationType: PinAnimationType.fade,
+                        closeKeyboardWhenCompleted: true,
+                        onCompleted: (data) {
+                          print(data);
+                        },
+                        animationCurve: Curves.easeInOut,
+                        animationDuration: const Duration(seconds: 2),
+                        validator: (e) {
+                          if (e == null || e.isEmpty) {
+                            return "Enter OTP code";
+                          } else {
+                            null;
+                          }
+                          return null;
+                        },
+                        defaultPinTheme: PinTheme(
+                          width: 56,
+                          height: 56,
+                          textStyle: const TextStyle(
+                              fontSize: 20,
+                              color: Color.fromRGBO(30, 60, 87, 1),
+                              fontWeight: FontWeight.w600),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromRGBO(234, 239, 243, 1)),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
+                        controller: cubit.otpController,
+                        preFilledWidget: const TextItem(
+                          text: '__',
+                        ),
                       ),
-                      SizedBox(
-                        height: 35.h,
-                      ),
-                      const TextItem(
-                        fontWeight: FontWeight.w700,
-                        textSize: 16,
-                        color: Color(0xffCCCCCC),
-                        text: "Please enter OTP to your \n Register mobile",
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 55.h,
-                      ),
+                    ),
+                    SizedBox(
+                      height: 35.h,
+                    ),
+                    const TextItem(
+                      fontWeight: FontWeight.w700,
+                      textSize: 16,
+                      color: Color(0xffCCCCCC),
+                      text: "Please enter OTP to your \n Register mobile",
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 55.h,
+                    ),
 
-                      ButtonItem(
-                        onPressed: () async {
-                          if (pinCodFormKey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SetPasswordView(
-                                  phone: phone,
-                                ),
-                              ),
-                            );
-                            // await cubit.pinCode(
-                            //   phone: phone,
-                            //   otp: cubit.otp,
-                            // );
-                            print("DONE");
-                          }
-                        },
-                        text: 'Verify',
-                      ),
-                    ],
-                  ),
+                    ButtonItem(
+                      onPressed: () async {
+                        await cubit.checkPinCode(
+                          phone: phone,
+                          otp: cubit.otpController.text.toString(),
+                        );
+
+
+
+                        // if (pinCodFormKey.currentState!.validate()) {
+                        //
+                        //   print("DONE");
+                        // }
+                      },
+                      text: 'Verify',
+                    ),
+                  ],
                 ),
               ),
             );

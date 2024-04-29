@@ -6,13 +6,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.unSelectedItemColor,
-    required this.SelectedItemColor,
+    required this.selectedItemColor,
     required this.currentIndex,
   });
 
   final Function(int) onPressed;
   final Color unSelectedItemColor;
-  final Color SelectedItemColor;
+  final Color selectedItemColor;
   final int currentIndex;
 
   @override
@@ -22,7 +22,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       backgroundColor: Colors.black,
       landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
       unselectedItemColor: unSelectedItemColor,
-      selectedItemColor: SelectedItemColor,
+      selectedItemColor: selectedItemColor,
       selectedIconTheme: const IconThemeData(
         size: 20,
       ),
@@ -56,6 +56,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: Icon(Icons.more_horiz_outlined),
           label: 'المزيد',
         ),
+
       ],
     );
   }

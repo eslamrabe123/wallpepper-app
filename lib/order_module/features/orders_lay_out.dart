@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
+import 'package:wallpapper/lay_out_module/features/home_screen.dart';
 import '../../core/themes/color_themes.dart';
 import '../../shared/custom_appbar.dart';
 import '../component/completed_orders-component.dart';
@@ -86,11 +87,15 @@ class _SettingLayOut extends State<OrderLayOut>
                       color: AppColors.textColor,
                       icon: const Icon(Icons.arrow_back_ios),
                       onPressed: () {
-                        // Navigator.pushNamed(context, NotificationScreen.id);
+                         Navigator.pop(context);
+                         Navigator.pop(context);
+
                       },
                     ),
                     action: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                       icon: SvgPicture.asset(
                         "assets/images/Option.svg",
                         color: AppColors.textColor,

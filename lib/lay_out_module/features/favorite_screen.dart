@@ -22,11 +22,8 @@ class FavoriteScreen extends StatelessWidget {
           final cubit = LayOutCubit.get(context);
 
           return Scaffold(
-            drawer: DrawerWidget(),
-            body:state is GetFavoriteStateLoading ||
-                state is RecommendedStateLoading
-                ? const Center(child: CircularProgressIndicator())
-                : SafeArea(
+            drawer: const DrawerWidget(),
+            body: SafeArea(
               child: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(

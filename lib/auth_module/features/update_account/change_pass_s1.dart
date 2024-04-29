@@ -11,6 +11,7 @@ import 'package:wallpapper/shared/textItem.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../shared/button_item.dart';
 import '../../../shared/custom_appbar.dart';
+import '../../../shared/drawer.dart';
 import '../../cubit/auth_state.dart';
 
 class ChangePasswordStepOneScreen extends StatelessWidget {
@@ -39,6 +40,7 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerWidget(),
       body: BlocProvider(
         create: (context) => serviceLocator<AuthCubit>(),
         child: BlocConsumer<AuthCubit, AuthState>(
@@ -80,10 +82,10 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
                       Center(
                         child: Pinput(
                           onChanged: (data) {
-                            cubit.otp = int.tryParse(cubit.otpController.text);
+                            // cubit.otp = int.tryParse(cubit.otpController.text);
                           },
                           onSubmitted: (data) {
-                            cubit.otp = int.tryParse(cubit.otpController.text);
+                            // cubit.otp = int.tryParse(cubit.otpController.text);
                           },
                           pinAnimationType: PinAnimationType.fade,
                           closeKeyboardWhenCompleted: true,
@@ -116,19 +118,7 @@ class ChangePasswordStepOneScreen extends StatelessWidget {
                       ),
                       ButtonItem(
                         onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            // await cubit.pinCode(
-                            //   phone: phone,
-                            //   otp: cubit.otp ?? 0,
-                            //
-                            // );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomeScreen(),
-                              ),
-                            );
-                          }
+                          if (formKey.currentState!.validate()) {}
                         },
                         text: 'Verify',
                       ),

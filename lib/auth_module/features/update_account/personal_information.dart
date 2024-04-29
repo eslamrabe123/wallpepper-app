@@ -7,7 +7,8 @@ import 'package:wallpapper/core/services/services_locator.dart';
 import 'package:wallpapper/shared/button_item.dart';
 import 'package:wallpapper/shared/custom_appbar.dart';
 import 'package:wallpapper/shared/text_field_item.dart';
-
+import '../../../core/utiles/shared.dart';
+import '../../../shared/drawer.dart';
 import '../../../shared/textItem.dart';
 import '../../cubit/auth_state.dart';
 import 'change_pass_s1.dart';
@@ -30,6 +31,7 @@ class PersonalInformationScreen extends StatelessWidget {
         builder: (context, state) {
           final cubit = AuthCubit.get(context);
           return Scaffold(
+            drawer: const DrawerWidget(),
             body: SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 5.r),
@@ -83,7 +85,7 @@ class PersonalInformationScreen extends StatelessWidget {
                         ),
                         TextFieldItem(
                           controller: cubit.setNameController,
-                          hintText: "Name",
+                            hintText: "${CacheHelper.loadData(key: "name")}",
                           validate: (data) {
                             if (data == null || data.isEmpty) {
                               return "user name is required";
@@ -105,7 +107,7 @@ class PersonalInformationScreen extends StatelessWidget {
                         ),
                         TextFieldItem(
                           controller: cubit.phoneController,
-                          hintText: 'Phone number',
+                          hintText: "${CacheHelper.loadData(key: "phoen")}",
                           validate: (data) {
                             if (data == null || data.isEmpty) {
                               return "enter your phone number";
@@ -142,6 +144,8 @@ class PersonalInformationScreen extends StatelessWidget {
                         ),
                         ButtonItem(
                           onPressed: () {
+                            print(cubit.getUserDataModel?.data?.name);
+
                             if (formKey.currentState!.validate()) {}
                           },
                           text: "Save",

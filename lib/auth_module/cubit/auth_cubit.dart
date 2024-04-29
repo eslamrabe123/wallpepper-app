@@ -6,6 +6,8 @@ import 'package:wallpapper/auth_module/cubit/auth_state.dart';
 
 import '../domain/models/user_data_model.dart';
 import '../domain/repository/aut_repository.dart';
+import '../../../core/utiles/shared.dart';
+import '../../../core/utiles/utils.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepository) : super(AuthInitial());
@@ -13,9 +15,13 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
 
   AuthRepository authRepository;
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController phoneController = TextEditingController(
+    text: CacheHelper.loadData(key: 'phone') ?? '',
+  );
   TextEditingController passwordController = TextEditingController();
-  TextEditingController setNameController = TextEditingController();
+  TextEditingController setNameController = TextEditingController(
+    text: CacheHelper.loadData(key: 'name') ?? '',
+  );
   TextEditingController setEmailController = TextEditingController();
   TextEditingController setPasswordController = TextEditingController();
   TextEditingController otpController = TextEditingController();
@@ -32,10 +38,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  register({required BuildContext context}) async {
+  register({required BuildContext context,required String phoneNumber}) async {
     emit(RegisterLoadingState());
     final result =
-        await authRepository.register(phoneNumber: phoneController.text.trim());
+        await authRepository.register(phoneNumber: phoneNumber);
     if (result != null) {
       emit(RegisterSuccessState());
 
@@ -71,28 +77,34 @@ class AuthCubit extends Cubit<AuthState> {
     );
     if (result != null) {
       emit(LoginSuccessState());
+      CacheHelper.saveData(
+          key: "token", value: result.response?.data['access_token']);
+      Utils.token = CacheHelper.loadData(key: "token");
 
-      return result;
+      CacheHelper.saveData(
+          key: 'name', value: result.response?.data["data"]["name"]);
+      Utils.name = CacheHelper.loadData(key: 'name');
+      CacheHelper.saveData(
+          key: 'phone', value: result.response?.data["data"]["phone"]);
+      Utils.phone = CacheHelper.loadData(key: 'phone');
     } else {
       emit(LoginErrorState());
     }
   }
 
-  int? otp;
-
-  pinCode({
-    String phone = '',
-    int? otp,
+  checkPinCode({
+    required String phone,
+    required String otp,
   }) async {
     emit(PinCodeLoadingState());
-    final result = await authRepository.pinCode(
+    final result = await authRepository.checkPinCode(
       phoneNumber: phone,
       otp: otp,
     );
     if (result) {
       emit(PinCodeSuccessState());
 
-      return true;
+      return result;
     } else {
       emit(PinCodeErrorState());
     }

@@ -9,6 +9,7 @@ import '../../../core/helper/app_regex.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../shared/button_item.dart';
 import '../../../shared/custom_appbar.dart';
+import '../../../shared/drawer.dart';
 import '../../../shared/textItem.dart';
 import '../../../shared/text_field_item.dart';
 
@@ -23,6 +24,7 @@ class SetNewPasswordView extends StatelessWidget {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      drawer: const DrawerWidget(),
       body: BlocProvider(
         create: (context) => serviceLocator<AccountCubit>(),
         child: BlocConsumer<AccountCubit, AccountState>(
@@ -55,12 +57,9 @@ class SetNewPasswordView extends StatelessWidget {
                           },
                         ),
                       ),
-
                       SizedBox(
                         height: 100.h,
                       ),
-
-
                       SizedBox(
                         height: 35.h,
                       ),

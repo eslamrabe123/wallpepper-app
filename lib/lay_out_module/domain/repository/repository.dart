@@ -14,7 +14,7 @@ class LayOutRepository {
   OffersModel? offersModel;
 
   getOffers() async {
-    final response = await dioService.getData(url: "offers", loading: false);
+    final response = await dioService.getData(url: "offers", loading: true);
     if (response.isError == false) {
       offersModel = OffersModel.fromJson(response.response?.data);
       return offersModel;
@@ -26,7 +26,7 @@ class LayOutRepository {
   GetFavoritesModel? getFavoritesModel;
 
   getFavorite() async {
-    final response = await dioService.getData(url: "favorites", loading: false);
+    final response = await dioService.getData(url: "favorites", loading: true);
     if (response.isError == false) {
       getFavoritesModel = GetFavoritesModel.fromJson(response.response?.data);
       return getFavoritesModel;
@@ -50,7 +50,7 @@ class LayOutRepository {
   getCategory() async {
     final response = await dioService.getData(
       url: "home-categories",
-      loading: false,
+      loading: true,
     );
     if (response.isError == false) {
       categoryModel = CategoryModel.fromJson(response.response?.data);
