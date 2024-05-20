@@ -6,13 +6,13 @@ import '../../helper/alerts.dart';
 import '../../utiles/utils.dart';
 import 'dart:async';
 
-String baseUrl = "https://wallpepper.neop.co/api/v1/";
+
 
 class DioService {
   Dio _mydio = Dio();
 
   DioService(
-      {String baseUrl = "https://wallpepper.neop.co/api/v1/",
+      {String baseUrl = "",
       BaseOptions? options}) {
     _mydio = Dio(BaseOptions(
         headers: {

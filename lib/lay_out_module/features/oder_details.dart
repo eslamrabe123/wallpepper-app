@@ -4,15 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wallpapper/lay_out_module/cubit/lay_out_cubit.dart';
+import 'package:wallpapper/lay_out_module/domain/model/recommended_model.dart';
 import 'package:wallpapper/shared/textItem.dart';
 import '../../core/general_cubit/cubit/general_cubit.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/themes/app_colors/app_colors_dark.dart';
 import '../../core/themes/app_colors/app_colors_light.dart';
 
+// ignore: must_be_immutable
 class OrderDetails extends StatelessWidget {
-  const OrderDetails({super.key, required this.index});
-  final int index;
+  OrderDetails({super.key, required this.item});
+
+  DishesModelDatum? item;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,8 @@ class OrderDetails extends StatelessWidget {
       create: (context) => serviceLocator<LayOutCubit>()..getRecommended(),
       child: Scaffold(
         body: OrderDetailContent(
-          index: index,
+          // index: index,
+          item: item,
         ),
       ),
     );
@@ -30,10 +34,12 @@ class OrderDetails extends StatelessWidget {
 class OrderDetailContent extends StatelessWidget {
   const OrderDetailContent({
     super.key,
-    required this.index,
+    // required this.index,
+    required this.item,
   });
 
-  final int index;
+  // final int index;
+  final DishesModelDatum? item;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +75,7 @@ class OrderDetailContent extends StatelessWidget {
                   background: FadeIn(
                     duration: const Duration(milliseconds: 500),
                     child: Image.network(
-                      cubit.recommendedModel?.data[index].avatar ?? "",
+                      item?.avatar ?? "",
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
                     ),
@@ -104,9 +110,7 @@ class OrderDetailContent extends StatelessWidget {
                           ),
                           child: Center(
                             child: TextItem(
-                              text: cubit.recommendedModel?.data[index].category
-                                      ?.name ??
-                                  "",
+                              text: item?.category?.name ?? "",
                               textSize: 14,
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -120,9 +124,7 @@ class OrderDetailContent extends StatelessWidget {
                               // color: Colors.amber,
                               width: 150.w,
                               child: TextItem(
-                                text:
-                                    cubit.recommendedModel?.data[index].name ??
-                                        "",
+                                text: item?.name ?? "",
                                 textSize: 30,
                                 maxLine: 2,
                               ),
@@ -148,9 +150,7 @@ class OrderDetailContent extends StatelessWidget {
                                       width: 5.w,
                                     ),
                                     TextItem(
-                                      text: cubit.recommendedModel?.data[index]
-                                              .price ??
-                                          "",
+                                      text: item?.price ?? "",
                                       textSize: 30,
                                       color: AppColorLight.textRedColor,
                                     ),
@@ -178,10 +178,7 @@ class OrderDetailContent extends StatelessWidget {
                                       width: 5.w,
                                     ),
                                     TextItem(
-                                      text: cubit.recommendedModel?.data[index]
-                                              .time
-                                              .toString() ??
-                                          "",
+                                      text: item?.time.toString() ?? "",
                                       textSize: 16,
                                       color: context
                                                   .read<GeneralCubit>()
@@ -217,8 +214,7 @@ class OrderDetailContent extends StatelessWidget {
                       color: context.read<GeneralCubit>().islight == true
                           ? AppColorLight.textHintColor
                           : Colors.white,
-                      text: cubit.recommendedModel?.data[index].description ??
-                          ""),
+                      text: item?.description ?? ""),
                 ),
               ),
               SliverToBoxAdapter(
@@ -237,7 +233,7 @@ class OrderDetailContent extends StatelessWidget {
                       height: 56.h,
                       decoration: BoxDecoration(
                         color: const Color(0xffEBEFF3),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15.w),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -295,11 +291,11 @@ class OrderDetailContent extends StatelessWidget {
                                 const Spacer(
                                   flex: 2,
                                 ),
-                                const TextItem(
+                                TextItem(
                                   textAlign: TextAlign.center,
                                   text: "Add to cart",
                                   color: Colors.white,
-                                  textSize: 16,
+                                  textSize: 16.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                                 const Spacer(

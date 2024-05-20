@@ -23,6 +23,8 @@ class MyLoading {
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
+                child: loadingWidget())
+            : Dialog(
                 child: SizedBox(
                   width: 50.w,
                   height: 50.h,

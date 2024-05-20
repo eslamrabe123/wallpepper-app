@@ -186,10 +186,9 @@ class DrawerWidget extends StatelessWidget {
                               ? AppColorLight.textMainColor
                               : Colors.white,
                     );
-                 
                   },
                 ),
-               
+
                 //   leading: Icon(Icons.language, color: color),
                 //   title: TextItem(
                 //     text: 'language'.tr(),
@@ -447,7 +446,7 @@ class DrawerWidget extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    EdgeInsets.symmetric(horizontal: 25.0.r, vertical: 8.0.r),
+                    EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 8.0.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
@@ -458,7 +457,7 @@ class DrawerWidget extends StatelessWidget {
                         text: liftButtonText,
                         color: liftButtonColor ?? AppColorLight.textRedColor,
                         fontWeight: FontWeight.w600,
-                        textSize: 18,
+                        textSize: 18.sp,
                       ),
                     ),
                     const Spacer(),
@@ -469,7 +468,7 @@ class DrawerWidget extends StatelessWidget {
                           color:
                               rightButtonColor ?? AppColorLight.textGreyColor,
                           fontWeight: FontWeight.w600,
-                          textSize: 18,
+                          textSize: 18.sp,
                         )),
                   ],
                 ),

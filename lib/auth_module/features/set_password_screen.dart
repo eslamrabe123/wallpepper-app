@@ -50,6 +50,7 @@ class SetPasswordView extends StatelessWidget {
                       context.read<GeneralCubit>().islight == true
                           ? "assets/images/pin_code_icon.svg"
                           : "assets/images/Group 52.svg",
+
                     ),
                     SizedBox(
                       height: 45.h,
@@ -58,7 +59,7 @@ class SetPasswordView extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       textSize: 20.sp,
                       text: "finally".tr(),
-                      textAlign: TextAlign.center,
+
                     ),
                     SizedBox(
                       height: 35.h,
@@ -102,6 +103,7 @@ class SetPasswordView extends StatelessWidget {
                               .tr();
                         } else if (!AppRegex.hasNumber(data)) {
                           return "password_must_contain_numbers".tr();
+
                         } else {
                           return null;
                         }
@@ -121,6 +123,7 @@ class SetPasswordView extends StatelessWidget {
                       validate: (data) {
                         if (data == null || data.isEmpty) {
                           return "user_name_is_required".tr();
+
                         } else {
                           return null;
                         }

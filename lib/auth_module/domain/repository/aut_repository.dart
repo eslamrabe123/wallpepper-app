@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wallpapper/core/local/api/api.dart';
 import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
-import '../../../core/themes/color_themes.dart';
 import '../../../core/utiles/shared.dart';
 import '../../../core/utiles/utils.dart';
 import '../models/user_data_model.dart';
@@ -170,7 +169,7 @@ class AuthRepository {
         textColor: Colors.white,
         fontSize: 12.0,
       );
-    }
+z    }
   }
 
   sendOtp({String phone = ''}) async {
@@ -207,6 +206,7 @@ class AuthRepository {
       "phone": phone,
       "password": password,
     });
+
     if (response.isError == false) {
       return response.response?.data;
     } else {
