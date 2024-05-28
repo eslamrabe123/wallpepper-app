@@ -67,11 +67,10 @@ class LoginView extends StatelessWidget {
                           height: 35.h,
                         ),
                         TextFieldItem(
-                          lableColor:  context
-                              .read<GeneralCubit>()
-                              .islight == true
-                              ?AppColorLight.textHintColor
-                              : Colors.white,
+                          lableColor:
+                              context.read<GeneralCubit>().islight == true
+                                  ? AppColorLight.textHintColor
+                                  : Colors.white,
                           suffixIcon: IconButton(
                             color: cubit.isPassWordVisible == true
                                 ? AppColorLight.primaryColor
@@ -100,11 +99,10 @@ class LoginView extends StatelessWidget {
                           },
                         ),
                         TextFieldItem(
-                          lableColor:  context
-                              .read<GeneralCubit>()
-                              .islight == true
-                              ?AppColorLight.textHintColor
-                              : Colors.white,
+                          lableColor:
+                              context.read<GeneralCubit>().islight == true
+                                  ? AppColorLight.textHintColor
+                                  : Colors.white,
                           keyBordType: TextInputType.phone,
                           onSubmitted: (vale) {},
                           onChange: (newValue) {},

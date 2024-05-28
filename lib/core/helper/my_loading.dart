@@ -24,23 +24,23 @@ class MyLoading {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: loadingWidget())
-            : Dialog(
-                child: SizedBox(
-                  width: 50.w,
-                  height: 50.h,
-                  child: loadingWidget(),
-                ),
-              )
+            // : Dialog(
+            //     child: SizedBox(
+            //       width: 50.w,
+            //       height: 50.h,
+            //       child: loadingWidget(),
+            //     ),
+            //   )
             : Dialog(
                 child: Container(
                   decoration: BoxDecoration(
                     color: context.read<GeneralCubit>().islight == true
                         ? null
                         : Colors.white,
-                    borderRadius: BorderRadius.circular(13),
+                    borderRadius: BorderRadius.circular(13.w),
                   ),
-                  width: 200,
-                  height: 200,
+                  width: 200.w,
+                  height: 200..h,
                   child: loadingWidget(),
                 ),
               ),

@@ -35,11 +35,11 @@ class _FavoritesComponentState extends State<FavoritesComponent> {
             ? TextItem(text: "somthing went wrong")
             : GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              OrderDetails(index: widget.index)));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) =>
+                  //             OrderDetails(index: widget.index)));
                 },
                 child: FadeIn(
                   duration: const Duration(milliseconds: 500),

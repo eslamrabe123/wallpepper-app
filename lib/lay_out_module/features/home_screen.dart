@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/core/services/services_locator.dart';
-import 'package:wallpapper/core/themes/app_colors/app_colors_dark.dart';
 import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 import '../../shared/custom_appbar.dart';
 import '../../shared/textItem.dart';
@@ -238,8 +237,7 @@ class HomeScreen extends StatelessWidget {
                               cubit.index = index;
 
                               return RecommendedItem(
-                                nweIndex: index,
-                                index: index,
+                                model: cubit.recommendedModel?.data[index],
                               );
                             },
                             childCount: 5,

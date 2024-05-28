@@ -16,9 +16,11 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
 
   AuthRepository authRepository;
+
   TextEditingController phoneController = TextEditingController(
     text: CacheHelper.loadData(key: 'phone') ?? '',
   );
+
   TextEditingController passwordController = TextEditingController();
   TextEditingController setNameController = TextEditingController(
     text: CacheHelper.loadData(key: 'name') ?? '',
@@ -42,9 +44,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   register({required BuildContext context, required String phoneNumber}) async {
-  register({required BuildContext context, required String phoneNumber}) async {
     emit(RegisterLoadingState());
-    final result = await authRepository.register(phoneNumber: phoneNumber);
     final result = await authRepository.register(phoneNumber: phoneNumber);
     if (result != null) {
       emit(RegisterSuccessState());
@@ -60,15 +60,8 @@ class AuthCubit extends Cubit<AuthState> {
     required String name,
     required String password,
   }) async {
-  completeRegister({
-    required String phone,
-    required String name,
-    required String password,
-  }) async {
     emit(CompleteRegisterLoadingState());
     final result = await authRepository.completeRegister(
-      password: password,
-      name: name,
       password: password,
       name: name,
       phoneNumber2: phone,
@@ -109,7 +102,7 @@ class AuthCubit extends Cubit<AuthState> {
       phoneNumber: phone,
       otp: otp,
     );
-    if (result ==null) {
+    if (result == null) {
       emit(PinCodeSuccessState());
 
       return true;

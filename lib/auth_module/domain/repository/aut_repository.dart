@@ -169,7 +169,7 @@ class AuthRepository {
         textColor: Colors.white,
         fontSize: 12.0,
       );
-z    }
+    }
   }
 
   sendOtp({String phone = ''}) async {

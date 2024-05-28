@@ -90,11 +90,10 @@ class PersonalInformationScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: TextFieldItem(
-                            lableColor:  context
-                                .read<GeneralCubit>()
-                                .islight == true
-                                ?AppColorLight.textHintColor
-                                : Colors.white,
+                            lableColor:
+                                context.read<GeneralCubit>().islight == true
+                                    ? AppColorLight.textHintColor
+                                    : Colors.white,
                             controller: cubit.setNameController,
                             validate: (data) {
                               if (data == null || data.isEmpty) {
@@ -108,13 +107,12 @@ class PersonalInformationScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: TextFieldItem(
-                            lableColor:  context
-                                .read<GeneralCubit>()
-                                .islight == true
-                                ?AppColorLight.textHintColor
-                                : Colors.white,
+                            lableColor:
+                                context.read<GeneralCubit>().islight == true
+                                    ? AppColorLight.textHintColor
+                                    : Colors.white,
                             controller: cubit.setEmailController,
-                            hintText: 'Email',
+                            hintText: 'email'.tr(),
                             validate: (data) {
                               if (data == null || data.isEmpty) {
                                 return "email_is_required".tr();
@@ -129,11 +127,10 @@ class PersonalInformationScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: TextFieldItem(
-                            lableColor:  context
-                                .read<GeneralCubit>()
-                                .islight == true
-                                ?AppColorLight.textHintColor
-                                : Colors.white,
+                            lableColor:
+                                context.read<GeneralCubit>().islight == true
+                                    ? AppColorLight.textHintColor
+                                    : Colors.white,
                             controller: cubit.phoneController,
                             hintText: "${CacheHelper.loadData(key: "phoen")}",
                             validate: (data) {

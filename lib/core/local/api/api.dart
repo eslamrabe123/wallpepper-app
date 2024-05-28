@@ -2,18 +2,15 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../../helper/my_loading.dart';
-import '../../helper/alerts.dart';
 import '../../utiles/utils.dart';
 import 'dart:async';
 
-
+String baseUrl = "https://wallpepper.neop.co/api/v1/";
 
 class DioService {
   Dio _mydio = Dio();
 
-  DioService(
-      {String baseUrl = "",
-      BaseOptions? options}) {
+  DioService({String baseUrl = "https://wallpepper.neop.co/api/v1/", BaseOptions? options}) {
     _mydio = Dio(BaseOptions(
         headers: {
           "Accept": "application/json",
@@ -52,7 +49,6 @@ class DioService {
     try {
       if (loading) {
         MyLoading.show();
-
       }
       final response = await _mydio.post(url,
           queryParameters: query,
@@ -193,7 +189,7 @@ class DioService {
     return ApiResponse(isError: true, response: e.response);
   }
 
-  ApiResponse checkForSuccess(Response response) {
+  Future<ApiResponse> checkForSuccess(Response response) async {
     if (response.data["data"] != null) {
       return ApiResponse(isError: false, response: response);
     } else {

@@ -9,19 +9,22 @@ import 'package:wallpapper/core/themes/app_colors/app_colors_light.dart';
 import 'package:wallpapper/shared/textItem.dart';
 
 import '../cubit/lay_out_cubit.dart';
+import '../domain/model/recommended_model.dart';
 import '../features/oder_details.dart';
 
 // ignore: must_be_immutable
 class RecommendedItem extends StatefulWidget {
   RecommendedItem({
     super.key,
-    required this.index,
-    required this.nweIndex,
+    // required this.index,
+    required this.model,
+    // required this.nweIndex,
   });
 
-  final int index;
-  final int nweIndex;
+  // final int index;
+  // final int nweIndex;
   bool isLike = false;
+  DishesModelDatum? model;
 
   @override
   State<RecommendedItem> createState() => _RecommendedItemState();
@@ -41,7 +44,9 @@ class _RecommendedItemState extends State<RecommendedItem> {
               context,
               MaterialPageRoute(
                 builder: (context) => OrderDetails(
-                  index: widget.index,
+                  // index: widget.index,
+                  item: widget.model,
+                  // cubit.recommendedModel?.data[widget.index],
                 ),
               ),
             );
@@ -92,9 +97,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
-                                    cubit.recommendedModel?.data[widget.index]
-                                            .avatar ??
-                                        "",
+                                    widget.model?.avatar ?? "",
                                   ),
                                 )),
                           ),
@@ -105,9 +108,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
                             SizedBox(
                               width: 150.w,
                               child: TextItem(
-                                text: cubit.recommendedModel?.data[widget.index]
-                                        .name ??
-                                    "",
+                                text: widget.model?.name ?? "",
                                 textSize: 18.sp,
                                 overflow: TextOverflow.ellipsis,
                                 maxLine: 1,
@@ -125,8 +126,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                   width: 5.w,
                                 ),
                                 TextItem(
-                                  text:
-                                      "${cubit.recommendedModel?.data[widget.index].rating.toString()}",
+                                  text: widget.model?.rating.toString() ?? '',
                                   color: context.read<GeneralCubit>().islight ==
                                           false
                                       ? Colors.white
@@ -148,8 +148,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                   width: 5.w,
                                 ),
                                 TextItem(
-                                  text:
-                                      "${cubit.recommendedModel?.data[widget.index].time.toString()} min",
+                                  text: "${widget.model?.time.toString()} min",
                                   color: context.read<GeneralCubit>().islight ==
                                           false
                                       ? Colors.white
@@ -176,8 +175,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                   width: 5.w,
                                 ),
                                 TextItem(
-                                  text:
-                                      "${cubit.recommendedModel?.data[widget.index].price} ",
+                                  text: "${widget.model?.price} ",
                                   color: AppColorLight.primaryColor,
                                   fontWeight: FontWeight.normal,
                                   textSize: 18.sp,
@@ -196,9 +194,7 @@ class _RecommendedItemState extends State<RecommendedItem> {
                               GestureDetector(
                                 child: SvgPicture.asset(
                                   "assets/images/ionheart-circle.svg",
-                                  color: cubit.recommendedModel
-                                              ?.data[widget.index].isFav ==
-                                          true
+                                  color: widget.model?.isFav == true
                                       ? AppColorLight.favoriteIconColor
                                       : context.read<GeneralCubit>().islight ==
                                               true
@@ -206,12 +202,10 @@ class _RecommendedItemState extends State<RecommendedItem> {
                                           : Colors.white,
                                 ),
                                 onTap: () async {
-                                  cubit.changeFavIconColor(index: widget.index);
-
                                   await cubit.toggleFavorite(
-                                    dishId: cubit.recommendedModel
-                                        ?.data[widget.index].id,
+                                    dishId: widget.model?.id,
                                   );
+                                  // cubit.changeFavIconColor(index: widget.index);
                                 },
                               ),
                             ],
