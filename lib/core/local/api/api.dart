@@ -5,12 +5,12 @@ import '../../helper/my_loading.dart';
 import '../../utiles/utils.dart';
 import 'dart:async';
 
-String baseUrl = "https://wallpepper.neop.co/api/v1/";
+String baseUrl = "";
 
 class DioService {
   Dio _mydio = Dio();
 
-  DioService({String baseUrl = "https://wallpepper.neop.co/api/v1/", BaseOptions? options}) {
+  DioService({String baseUrl = "", BaseOptions? options}) {
     _mydio = Dio(BaseOptions(
         headers: {
           "Accept": "application/json",
