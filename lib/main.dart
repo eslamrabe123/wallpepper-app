@@ -60,10 +60,10 @@ class MyApp extends StatelessWidget {
                 routes: routs,
                 builder: (context, child) {
                   final flutterSmart = FlutterSmartDialog.init();
-                  final toast = FToastBuilder();
+                  // final toast = FToastBuilder();
                   final botToast = BotToastInit();
                   child = botToast(context, child);
-                  child = toast(context, child);
+                  // child = toast(context, child);
                   child = flutterSmart(context, child);
                   return child;
                 },

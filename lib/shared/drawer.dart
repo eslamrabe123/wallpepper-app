@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallpapper/auth_module/features/login_screen.dart';
-import 'package:wallpapper/auth_module/features/splash_screen.dart';
 import 'package:wallpapper/core/general_cubit/cubit/general_cubit.dart';
 import 'package:wallpapper/core/general_cubit/cubit/general_state.dart';
 import 'package:wallpapper/core/utiles/shared.dart';
 import '../account_module/features/privacy_policy.dart';
+import '../auth_module/features/splash_screen.dart';
 import '../auth_module/features/update_account/personal_information.dart';
 import '../core/themes/app_colors/app_colors_dark.dart';
 import '../core/themes/app_colors/app_colors_light.dart';
@@ -34,7 +34,7 @@ class DrawerWidget extends StatelessWidget {
         const ContinuousRectangleBorder(),
         1.0,
       ),
-      width: MediaQuery.of(context).size.width / 1.3.w,
+      width: .75.sw,
       child: BlocProvider(
         create: (context) => GeneralCubit(),
         child: BlocConsumer<GeneralCubit, GeneralState>(
@@ -59,7 +59,7 @@ class DrawerWidget extends StatelessWidget {
                   title: TextItem(
                     text: 'home'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     Navigator.push(
@@ -74,7 +74,7 @@ class DrawerWidget extends StatelessWidget {
                   title: TextItem(
                     text: 'my_cart'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     Navigator.push(
@@ -89,7 +89,7 @@ class DrawerWidget extends StatelessWidget {
                   title: TextItem(
                     text: 'my_orders'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     // Navigator.pushNamed(context, OrderLayOut.id);
@@ -105,7 +105,7 @@ class DrawerWidget extends StatelessWidget {
                   title: TextItem(
                     text: 'account'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     // Navigator.pushNamed(context, PersonalInformationScreen.id);
@@ -122,7 +122,7 @@ class DrawerWidget extends StatelessWidget {
                   title: TextItem(
                     text: 'offers'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     Navigator.push(
@@ -137,7 +137,7 @@ class DrawerWidget extends StatelessWidget {
                   title: TextItem(
                     text: 'favorites'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     // Navigator.pushNamed(context, FavoriteScreen.id);
@@ -153,7 +153,7 @@ class DrawerWidget extends StatelessWidget {
                   title: TextItem(
                     text: 'privacy_and_policy'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 16,
+                    textSize: 17.sp,
                   ),
                   onTap: () {
                     Navigator.push(
@@ -165,10 +165,10 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.theater_comedy_sharp, color: color),
-                  title: const TextItem(
+                  title: TextItem(
                     text: 'themes',
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     buildCangeTheme(
@@ -188,46 +188,46 @@ class DrawerWidget extends StatelessWidget {
                     );
                   },
                 ),
-
-                //   leading: Icon(Icons.language, color: color),
-                //   title: TextItem(
-                //     text: 'language'.tr(),
-                //     fontWeight: FontWeight.w600,
-                //     textSize: 18,
-                //   ),
-                //   onTap: () {
-                //     buildShowDialog(
-                //       context: context,
-                //       rightButton: () {
-                //         context.setLocale(const Locale('en', "US"));
-                //         Navigator.pushAndRemoveUntil(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: ((context) => const SplashView())),
-                //             (route) => false);
-                //       },
-                //       liftButton: () {
-                //         context.setLocale(const Locale('ar', "EG"));
-                //         Navigator.pushAndRemoveUntil(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: ((context) => const SplashView())),
-                //             (route) => false);
-                //       },
-                //       title: "chose_your_language".tr(),
-                //       liftButtonText: "arabic".tr(),
-                //       rightButtonText: "english".tr(),
-                //       liftButtonColor: AppColorLight.textMainColor,
-                //       rightButtonColor: AppColorLight.textMainColor,
-                //     );
-                //   },
-                // ),
+                ListTile(
+                  leading: Icon(Icons.language, color: color),
+                  title: TextItem(
+                    text: 'language'.tr(),
+                    fontWeight: FontWeight.w600,
+                    textSize: 18.sp,
+                  ),
+                  onTap: () {
+                    buildShowDialog(
+                      context: context,
+                      rightButton: () {
+                        context.setLocale(const Locale('en', "US"));
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const SplashView())),
+                            (route) => false);
+                      },
+                      liftButton: () {
+                        context.setLocale(const Locale('ar', "EG"));
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const SplashView())),
+                            (route) => false);
+                      },
+                      title: "chose_your_language".tr(),
+                      liftButtonText: "arabic".tr(),
+                      rightButtonText: "english".tr(),
+                      liftButtonColor: AppColorLight.textMainColor,
+                      rightButtonColor: AppColorLight.textMainColor,
+                    );
+                  },
+                ),
                 ListTile(
                   leading: Icon(Icons.logout_sharp, color: color),
                   title: TextItem(
                     text: 'logout'.tr(),
                     fontWeight: FontWeight.w600,
-                    textSize: 18,
+                    textSize: 18.sp,
                   ),
                   onTap: () {
                     buildShowDialog(
@@ -282,7 +282,7 @@ class DrawerWidget extends StatelessWidget {
               width: 300.w,
               height: 300.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 color: cubit.islight == true
                     ? Colors.white
                     : const Color.fromARGB(
@@ -301,7 +301,7 @@ class DrawerWidget extends StatelessWidget {
                   ),
                   TextItem(
                     text: "Themes",
-                    textSize: 20,
+                    textSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: cubit.islight == true
                         ? AppColorLight.textMainColor
@@ -315,7 +315,7 @@ class DrawerWidget extends StatelessWidget {
                     title: TextItem(
                       text: 'Light Mode',
                       fontWeight: FontWeight.bold,
-                      textSize: 18,
+                      textSize: 18.sp,
                       color: cubit.islight == true
                           ? AppColorLight.textMainColor
                           : Colors.white,
@@ -342,7 +342,7 @@ class DrawerWidget extends StatelessWidget {
                     title: TextItem(
                       text: 'Dark Mode',
                       fontWeight: FontWeight.bold,
-                      textSize: 18,
+                      textSize: 18.sp,
                       color: cubit.islight == true
                           ? AppColorLight.textMainColor
                           : Colors.white,
@@ -434,7 +434,7 @@ class DrawerWidget extends StatelessWidget {
               ),
               TextItem(
                 text: title,
-                textSize: 20,
+                textSize: 20.sp,
                 color: context.read<GeneralCubit>().islight == true
                     ? AppColorLight.textMainColor
                     : AppColorDark.textBackColor,
